@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://miracle-techlink.github.io/posts/4db4cd7b.html</loc>
-    
-    <lastmod>2024-10-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://miracle-techlink.github.io/posts/9d1cf8ae.html</loc>
     
     <lastmod>2024-10-17</lastmod>
@@ -124,6 +115,13 @@
 
   
   <url>
+    <loc>https://miracle-techlink.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://miracle-techlink.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -131,21 +129,7 @@
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://miracle-techlink.github.io/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://miracle-techlink.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
