@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://miracle-techlink.github.io/posts/1c111c70.html</loc>
+    <loc>https://miracle-techlink.github.io/posts/9aac52d9.html</loc>
     
     <lastmod>2025-04-23</lastmod>
     
@@ -101,13 +101,6 @@
 
   
   <url>
-    <loc>https://miracle-techlink.github.io/tags/llm/</loc>
-    <lastmod>2025-04-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://miracle-techlink.github.io/tags/mathmodel/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -124,14 +117,7 @@
 
   
   <url>
-    <loc>https://miracle-techlink.github.io/categories/llm/</loc>
-    <lastmod>2025-04-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://miracle-techlink.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://miracle-techlink.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -145,7 +131,7 @@
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://miracle-techlink.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
