@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://miracle-techlink.github.io/posts/eac6a656.html</loc>
+    <loc>https://miracle-techlink.github.io/posts/9aac52d9.html</loc>
     
     <lastmod>2025-04-23</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/posts/74a233f5.html</loc>
+    <loc>https://miracle-techlink.github.io/posts/eac6a656.html</loc>
     
     <lastmod>2025-04-23</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/posts/9aac52d9.html</loc>
+    <loc>https://miracle-techlink.github.io/posts/74a233f5.html</loc>
     
     <lastmod>2025-04-23</lastmod>
     
@@ -135,14 +135,14 @@
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/tags/Datawhale/</loc>
+    <loc>https://miracle-techlink.github.io/tags/DDP/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/tags/DDP/</loc>
+    <loc>https://miracle-techlink.github.io/tags/Datawhale/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -151,7 +151,7 @@
 
   
   <url>
-    <loc>https://miracle-techlink.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://miracle-techlink.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -165,14 +165,7 @@
   </url>
   
   <url>
-    <loc>https://miracle-techlink.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2025-04-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://miracle-techlink.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://miracle-techlink.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -180,6 +173,13 @@
   
   <url>
     <loc>https://miracle-techlink.github.io/categories/LLM/</loc>
+    <lastmod>2025-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://miracle-techlink.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2025-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
