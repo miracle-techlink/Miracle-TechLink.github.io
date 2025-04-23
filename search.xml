@@ -4,23 +4,48 @@
   
     
     <entry>
-      <title>不可思议的数据科学教程|数据处理分析</title>
-      <link href="/posts/281e8721.html"/>
-      <url>/posts/281e8721.html</url>
+      <title>LLM-分布式训练1</title>
+      <link href="/posts/1c111c70.html"/>
+      <url>/posts/1c111c70.html</url>
       
-        <content type="html"><![CDATA[<center><h1>不可思议的数据科学教程|数据处理分析</h1></center><blockquote><p>作者：@同济大学 刘越</p><p>Github ID：@miracle-techlink</p><p>联系邮箱：<a href="mailto:&#109;&#x69;&#x72;&#x61;&#x63;&#x6c;&#x65;&#x2e;&#116;&#x65;&#x63;&#104;&#108;&#105;&#110;&#107;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">miracle.techlink@gmail.com</a></p><p>教程参与贡献者：@1，@2，@3</p></blockquote><p><strong>特别感谢：Datawhale提供的数据科学学习平台</strong></p><p>开源教程链接：<a href="https://github.com/datawhalechina/intro-mathmodel">Datawhale数学建模导论开源学习</a></p><p>在这一章中我们将介绍数学建模中的数据处理以及常见的数据模型。从数据中挖掘有用的价值，这个学科叫做数据挖掘，也是数学建模中必考的问题，也是各大数学建模竞赛中考察的重难点。它主要针对的就是从杂乱无章的数据到验证结论的全过程。本章主要涉及到的知识点有：</p><blockquote><ul><li>数据科学与大数据简介</li><li>EDA过程–Python数据预处理</li><li>EDA过程–Python数据可视化</li><li>常见统计分析模型</li></ul></blockquote><hr><h2 id="数据科学与大数据简介"><a href="#数据科学与大数据简介" class="headerlink" title="数据科学与大数据简介"></a>数据科学与大数据简介</h2><p>数据科学是一门跨学科的实践性学科，它结合了统计学、计算机科学、机器学习、人工智能、数据可视化等多个领域，旨在从海量数据中提取有价值的信息，为决策提供支持。数据科学的主要任务包括数据采集、数据清洗、数据存储、数据挖掘、数据可视化等。数据科学的应用领域非常广泛，包括金融、医疗、教育、零售、制造、交通等多个行业。</p><p>什么可以被称为数据呢？数据是描述客观事物的符号记录，是计算机中可以识别、存储和处理的符号集合。其外延不仅仅局限在数值本身，它可以是一张照片，可以是周杰伦的歌曲音频，也可以是一段文字，甚至可以是抖音上的一个短视频。数据有很多分类方式，比如可以分类为结构化数据和半结构化数据。广义来说，我们可以把数据分为以下几类：</p><blockquote><ul><li>数值类数据，例如结构化的excel表格和SQL文件。</li><li>文本类数据，例如新闻报道、微博评论、餐饮点评等文字。</li><li>图像类数据，以一定尺寸的黑白或彩色图像在计算机内存储。</li><li>音频类数据，例如音乐、电话录音等。</li><li>信号类数据，例如地震波的波形、电磁波信号、脑电信号等。</li></ul></blockquote><p>这些形式下的数据都可以用来数学建模。文本变为数据，只需要做词频统计、TF-IDF、词嵌入等操作就可以“数化”；图像变为数据，因为它在计算机内本身就是以RGB三个通道的大矩阵在存储每个像素点的颜色信息；音频和信号类数据则更为简单，它本身可以视作一个波，用信号与系统的概念和方法也可以对其“数化”。</p>]]></content>
+        <content type="html"><![CDATA[<center><h1>LLM1--DDP</h1></center><p>111</p>]]></content>
       
       
       <categories>
           
-          <category> 数据科学 </category>
+          <category> llm </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 不可思议教程分享 </tag>
+            <tag> llm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>LLM---DDP1</title>
+      <link href="/posts/1c111c70.html"/>
+      <url>/posts/1c111c70.html</url>
+      
+        <content type="html"><![CDATA[<center><h1>LLM1--DDP</h1></center>]]></content>
+      
+      
+      <categories>
+          
+          <category> llm </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> llm </tag>
             
         </tags>
       
