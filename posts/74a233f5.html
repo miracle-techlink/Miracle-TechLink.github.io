@@ -267,38 +267,35 @@ mjx-container[display="true"] + br {
 }
 </style><link rel="alternate" href="/atom.xml" title="Miracle Techlink" type="application/atom+xml">
 </head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 仓库</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/images/cover_images/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Miracle Techlink"><img class="site-icon" src="/images/miracle%20techlink.png"/><span class="site-name">Miracle Techlink</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 仓库</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">LLM分布式训练3---集群架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-23T07:50:53.000Z" title="发表于 2025-04-23 15:50:53">2025-04-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-24T04:48:27.018Z" title="更新于 2025-04-24 12:48:27">2025-04-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/LLM/">LLM</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="LLM分布式训练3---集群架构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><center><h1>LLM分布式训练3---集群架构<h1></h1></h1></center>
-
-
  <div class="custom-font-size=20" style="font-size: 16px;">
-
 <blockquote>
 <p>作者：@同济大学 刘越</p>
 <p>Github ID：@miracle-techlink</p>
-<p>联系邮箱：<a href="mailto:&#x6d;&#x69;&#x72;&#97;&#99;&#x6c;&#101;&#46;&#116;&#x65;&#99;&#x68;&#108;&#105;&#110;&#107;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">miracle.techlink@gmail.com</a></p>
-<p>校内邮箱: <a href="mailto:&#50;&#50;&#x35;&#52;&#x30;&#x31;&#56;&#64;&#x74;&#111;&#110;&#103;&#106;&#x69;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;">2254018@tongji.edu.cn</a></p>
+<p>联系邮箱：miracle.techlink@gmail.com</p>
+<p>校内邮箱: <a href="mailto:2254018@tongji.edu.cn">2254018@tongji.edu.cn</a></p>
 </blockquote>
 </div>
-
-
 <div class="custom-font-size=20" style="font-size: 16px;">
-
-
 <p>本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。<em><strong>而这篇推送将主要介绍分布式训练的并行策略</strong></em>。</p>
 <blockquote>
 <ul>
-<li><ol>
+<li>
+<ol>
 <li><a href="https://miracle-techlink.github.io/posts/9aac52d9.html">分布式机器学习系统的基础概念</a></li>
 </ol>
 </li>
-<li><ol start="2">
+<li>
+<ol start="2">
 <li><a href="https://miracle-techlink.github.io/posts/3a50363.html">分布式训练的并行策略</a></li>
 </ol>
 </li>
-<li><ol start="3">
+<li>
+<ol start="3">
 <li><a href="https://miracle-techlink.github.io/posts/74a233f5.html">分布式训练的集群架构</a></li>
 </ol>
 </li>
-<li><ol start="4">
+<li>
+<ol start="4">
 <li><a href="https://miracle-techlink.github.io/posts/eac6a656.html">实操DDP-以DeepSpeed 为例</a></li>
 </ol>
 </li>
