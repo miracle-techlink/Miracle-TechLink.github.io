@@ -54,7 +54,7 @@
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2025-11-01 05:51:23'
+  postUpdate: '2025-11-05 14:32:22'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -269,8 +269,6 @@ Embodied-ai-in-healthcare
 
 
 
-
-
 作者：@同济大学 刘越
 Github ID：@miracle-techlink
 联系邮箱：miracle.techlink@gmail.com
@@ -278,6 +276,20 @@ Github ID：@miracle-techlink
 
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,37 +298,32 @@ LLM finetune practice
 
 
 
-
-
 作者：@同济大学 刘越
 Github ID：@miracle-techlink
 联系邮箱：miracle.techlink@gmail.com
 校内邮箱: 2254018@tongji.edu.cn
 
 
-
-引言</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/5a8a6c8d.html" title="LLM finetuning technical report"><img class="post-bg" src="/images/cover_images/finetune.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM finetuning technical report"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5a8a6c8d.html" title="LLM finetuning technical report"><i class="fas fa-thumbtack sticky"></i>LLM finetuning technical report</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-15T10:46:15.000Z" title="发表于 2025-10-15 18:46:15">2025-10-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-15T19:05:29.197Z" title="更新于 2025-10-16 03:05:29">2025-10-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/finetune/">finetune</a></span></div><div class="content">
+引言
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/5a8a6c8d.html" title="LLM finetuning technical report"><img class="post-bg" src="/images/cover_images/finetune.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM finetuning technical report"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5a8a6c8d.html" title="LLM finetuning technical report"><i class="fas fa-thumbtack sticky"></i>LLM finetuning technical report</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-15T10:46:15.000Z" title="发表于 2025-10-15 18:46:15">2025-10-15</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-15T19:05:29.197Z" title="更新于 2025-10-16 03:05:29">2025-10-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/finetune/">finetune</a></span></div><div class="content">
 LLM finetune technical blog
 
 
 
-
-
 作者：@同济大学 刘越
 Github ID：@miracle-techlink
 联系邮箱：miracle.techlink@gmail.com
 校内邮箱: 2254018@tongji.edu.cn
 
 
-
-引言随着大语言模型（LLM）规模的指数级增长，传统的全量微调方法正面临前所未有的挑战：参数量爆炸导致存储成本激增，灾难性遗忘阻碍多任务学习，计算资源需求超出大多数研究者的承受能力。为了在保持模型性能的同时大幅降低计算和存储开销，研究者们提出了各种参数高效微调（Parameter-Efficient Fine-Tuning, PELT）技术。
+引言
+随着大语言模型（LLM）规模的指数级增长，传统的全量微调方法正面临前所未有的挑战：参数量爆炸导致存储成本激增，灾难性遗忘阻碍多任务学习，计算资源需求超出大多数研究者的承受能力。为了在保持模型性能的同时大幅降低计算和存储开销，研究者们提出了各种参数高效微调（Parameter-Efficient Fine-Tuning, PELT）技术。
 本文系统性地梳理了当前主流的LLM微调技术全景，从最基础的BitFit到工业级标配的LoRA，从学术探索的Prefix Tuning到实用的QLoRA，再到前沿的UniPELT等组合方法。每种技术都有其独特的适用场景和权衡考量：
 
 轻量级方法（BitFit、Prompt Tuning）：专为资源极度受限的场景设计
-平衡型方法（LoRA、Adapter）：在性能和效率间实现最佳平衡 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/7209bb14.html" title="VLA具身模型后训练综述"><img class="post-bg" src="/images/cover_images/VLA-postrain1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VLA具身模型后训练综述"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7209bb14.html" title="VLA具身模型后训练综述"><i class="fas fa-thumbtack sticky"></i>VLA具身模型后训练综述</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-13T15:05:03.000Z" title="发表于 2025-10-13 23:05:03">2025-10-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-15T10:55:35.021Z" title="更新于 2025-10-15 18:55:35">2025-10-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/VLA/">VLA</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%90%8E%E8%AE%AD%E7%BB%83/">后训练</a></span></div><div class="content">
+平衡型方法（LoRA、Adapter）：在性能和效率间实现最佳平衡
+组 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/7209bb14.html" title="VLA具身模型后训练综述"><img class="post-bg" src="/images/cover_images/VLA-postrain1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VLA具身模型后训练综述"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7209bb14.html" title="VLA具身模型后训练综述"><i class="fas fa-thumbtack sticky"></i>VLA具身模型后训练综述</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-13T15:05:03.000Z" title="发表于 2025-10-13 23:05:03">2025-10-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-15T10:55:35.021Z" title="更新于 2025-10-15 18:55:35">2025-10-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/VLA/">VLA</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%90%8E%E8%AE%AD%E7%BB%83/">后训练</a></span></div><div class="content">
 VLA具身模型后训练综述
-
-
 
 
 
@@ -327,22 +334,21 @@ Github ID：@miracle-techlink
 
 
 ---
+① 监督式微调（SFT / Continual-FT）
 
-
-① 监督式微调（SFT / Continual-FT）  
-开场比喻把 VLA 的预训练模型想成一位“纸上谈兵”的天才画家——他看过互联网所有名画，能描述《蒙娜丽莎》的每一笔，却从未真正拿起过画笔。监督式微调（SFT）就是给他一堂“写生速成课”：只许看老师示范 10 分钟，然后自己动笔，把眼前的苹果搬到画布上。画家依旧保留对“苹果红”“光影柔”的深刻理解，但现在必须让手腕学会“在哪儿落笔、如何运笔”。
-数学舞台：条件概率的“画笔轨迹”我们把画家的写生过程写成一条“轨迹概率链”：
+开场比喻
+把 VLA 的预训练模型想成一位**“纸上谈兵”的天才画家**——他看过互联网所有名画，能描述《蒙娜丽莎》的每一笔，却从未真正拿起过画笔。监督式微调（SFT）就是给他一堂**“写生速成课”：只许看老师示范 10 分钟，然后自己动笔，把眼前的苹果搬到画布上。画家依旧保留对“苹果红”“光影柔”的深刻理解，但现在必须让手腕学会“在哪儿落笔、如何运笔”**。
+数学舞台：条件概率的“画笔轨迹”
+我们把画家的写生过程写成一条“轨迹概率链”：
 画苹果画苹果已落笔
 
 每个 brushₜ 对应下一毫米画笔动作（离散化后就是 0–255 的 token）
-只给“brush” token 算损失，让画家“手脑分离”——脑（视觉-语言）不动，手（动作头）狂练：
+只给“brush” token 算损失，让画家**“手脑分离”**——脑（视觉-语言）不动，手（动作头）狂练：
 
 画苹果
 画室里的“小灶”技巧
-冻结视觉-语言层  ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/5a0f8781.html" title="拓扑优化与CFD----高功率芯片设计微流体冷却系统"><img class="post-bg" src="/images/cover_images/CFD.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="拓扑优化与CFD----高功率芯片设计微流体冷却系统"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5a0f8781.html" title="拓扑优化与CFD----高功率芯片设计微流体冷却系统"><i class="fas fa-thumbtack sticky"></i>拓扑优化与CFD----高功率芯片设计微流体冷却系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-02T05:34:49.000Z" title="发表于 2025-05-02 13:34:49">2025-05-02</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-02T08:23:39.086Z" title="更新于 2025-05-02 16:23:39">2025-05-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI-engineering/">AI+engineering</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/AI-engineering/">AI+engineering</a></span></div><div class="content">
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/5a0f8781.html" title="拓扑优化与CFD----高功率芯片设计微流体冷却系统"><img class="post-bg" src="/images/cover_images/CFD.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="拓扑优化与CFD----高功率芯片设计微流体冷却系统"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5a0f8781.html" title="拓扑优化与CFD----高功率芯片设计微流体冷却系统"><i class="fas fa-thumbtack sticky"></i>拓扑优化与CFD----高功率芯片设计微流体冷却系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-02T05:34:49.000Z" title="发表于 2025-05-02 13:34:49">2025-05-02</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-02T08:23:39.086Z" title="更新于 2025-05-02 16:23:39">2025-05-02</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI-engineering/">AI+engineering</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/AI-engineering/">AI+engineering</a></span></div><div class="content">
 拓扑优化与CFD----高功率芯片设计微流体冷却系统
-
-
 
 
 
@@ -350,7 +356,6 @@ Github ID：@miracle-techlink
 Github ID：@miracle-techlink
 联系邮箱：miracle.techlink@gmail.com
 校内邮箱: 2254018@tongji.edu.cn
-
 
 
 
@@ -363,13 +368,11 @@ Github ID：@miracle-techlink
 网站页面也给出了这项技术的主要原理和架构图，对于其底层数学的建模原理，我们后续会继续给出分析，而仿真落地的方案因为论文并未开源，目前还在探索过程中，后面有时间才会更新。
 
 
- ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/df2d3022.html" title="LLM底层架构---手撕flashattention1"><img class="post-bg" src="/images/cover_images/flashattention.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM底层架构---手撕flashattention1"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/df2d3022.html" title="LLM底层架构---手撕flashattention1"><i class="fas fa-thumbtack sticky"></i>LLM底层架构---手撕flashattention1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-27T01:45:34.000Z" title="发表于 2025-04-27 09:45:34">2025-04-27</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-27T10:22:41.072Z" title="更新于 2025-04-27 18:22:41">2025-04-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/">底层架构</a></span></div><div class="content">
+目前这 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/df2d3022.html" title="LLM底层架构---手撕flashattention1"><img class="post-bg" src="/images/cover_images/flashattention.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM底层架构---手撕flashattention1"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/df2d3022.html" title="LLM底层架构---手撕flashattention1"><i class="fas fa-thumbtack sticky"></i>LLM底层架构---手撕flashattention1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-27T01:45:34.000Z" title="发表于 2025-04-27 09:45:34">2025-04-27</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-27T10:22:41.072Z" title="更新于 2025-04-27 18:22:41">2025-04-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/">底层架构</a></span></div><div class="content">
 LLM底层架构---手撕flashattention1
 
 
 
-
-
 作者：@同济大学 刘越
 Github ID：@miracle-techlink
 联系邮箱：miracle.techlink@gmail.com
@@ -377,22 +380,20 @@ Github ID：@miracle-techlink
 
 
 
-
-引言FlashAttention是近年来为优化自注意力机制（Self-Attention）而提出的一种高效算法，旨在解决传统注意力机制在大规模模型训练中的内存和计算瓶颈问题。其通过在硬件层面优化内存访问和计算策略，实现了显著的加速效果，尤其适用于大规模模型的训练。在其原始论文中（FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Aware Computation），作者提出了一种基于硬件友好的设计，使得计算过程中内存使用更加高效，从而加速了训练过程。FlashAttention 在保持精度的同时，显著降低了对 GPU 显存的需求和内存带宽的消耗。本文章参考了李理的博客（FlashAttention: 高效注意力机制的实现与优化），结合 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/212a16ef.html" title="LLM分布式训练3---并行策略之流水线并行"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练3---并行策略之流水线并行"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/212a16ef.html" title="LLM分布式训练3---并行策略之流水线并行"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练3---并行策略之流水线并行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-24T04:37:17.000Z" title="发表于 2025-04-24 12:37:17">2025-04-24</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-27T01:50:25.867Z" title="更新于 2025-04-27 09:50:25">2025-04-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">
+引言
+FlashAttention是近年来为优化自注意力机制（Self-Attention）而提出的一种高效算法，旨在解决传统注意力机制在大规模模型训练中的内存和计算瓶颈问题。其通过在硬件层面优化内存访问和计算策略，实现了显著的加速效果，尤其适用于大规模模型的训练。在其原始论文中（FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Aware Computation），作者提出了一种基于硬件友好的设计，使得计算过程中内存使用更加高效，从而加速了训练过程。FlashAttention 在保持精度的同时，显著降低了对 GPU 显存的需求和内存带宽的消耗。本文章参考了李理的博客（FlashAttention: 高效注意力机制的实现与优化），结合自己 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/212a16ef.html" title="LLM分布式训练3---并行策略之流水线并行"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练3---并行策略之流水线并行"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/212a16ef.html" title="LLM分布式训练3---并行策略之流水线并行"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练3---并行策略之流水线并行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-24T04:37:17.000Z" title="发表于 2025-04-24 12:37:17">2025-04-24</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-27T01:50:25.867Z" title="更新于 2025-04-27 09:50:25">2025-04-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">
 LLM分布式训练3---并行策略之流水线并行
 
 
 
-
-
 作者：@同济大学 刘越
 Github ID：@miracle-techlink
 联系邮箱：miracle.techlink@gmail.com
 校内邮箱: 2254018@tongji.edu.cn
 
 
+本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。而这篇推送将主要介绍分布式训练的并行策略----流水线并行。
 
-本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。而这篇推送将主要介绍分布式训练的并行策略—-流水线并行。
 
 
 
@@ -400,11 +401,87 @@ Github ID：@miracle-techlink
 
 
 
+
 分布式训练的并行策略
 
 
 
+
 分布式训练的集群架构
+
+
+
+
+实操DDP-以DeepSpeed 为例
+
+
+
+
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/3a50363.html" title="LLM分布式训练2---并行策略之数据并行"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练2---并行策略之数据并行"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/3a50363.html" title="LLM分布式训练2---并行策略之数据并行"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练2---并行策略之数据并行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-23T07:50:53.000Z" title="发表于 2025-04-23 15:50:53">2025-04-23</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-24T04:34:45.908Z" title="更新于 2025-04-24 12:34:45">2025-04-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">
+LLM分布式训练2---并行策略之数据并行
+
+
+
+作者：@同济大学 刘越
+Github ID：@miracle-techlink
+联系邮箱：miracle.techlink@gmail.com
+校内邮箱: 2254018@tongji.edu.cn
+
+
+本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。而这篇推送将主要介绍分布式训练的并行策略。
+
+
+
+
+分布式机器学习系统的基础概念
+
+
+
+
+分布式训练的并行策略
+
+
+
+
+分布式训练的集群架构
+
+
+
+
+实操DDP-以DeepSpeed 为例
+
+
+
+
+数据并行的数学原理
+数据并行的核心思想是将整个神经网络模型复制到多个计算设备上，并将训练数据分成若干子集，分配到每个计算设备上。每个计算设备独立进行前向传播和反向传播，计算出本地的梯度，并将所有设备的梯度汇总以更新模型。这个过程的关键在于梯度的同步和平均。
+在数据并行系统中，每个计算设备都有整个神经网络模型的模型副本（Model Replica），进行并行计算。每个计算设备只分配一个批次数据样本的 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/eac6a656.html" title="LLM分布式训练4---Deepspeed实操"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练4---Deepspeed实操"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/eac6a656.html" title="LLM分布式训练4---Deepspeed实操"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练4---Deepspeed实操</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-23T07:50:53.000Z" title="发表于 2025-04-23 15:50:53">2025-04-23</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-23T08:02:20.688Z" title="更新于 2025-04-23 16:02:20">2025-04-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">LLM分布式训练4---Deepspeed实操
+ 
+
+作者：@同济大学 刘越
+Github ID：@miracle-techlink
+联系邮箱：miracle.techlink@gmail.com
+校内邮箱: 2254018@tongji.edu.cn
+
+
+
+本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。而这篇推送将主要介绍分布式训练的Deepspeed实操。
+
+
+
+
+分布式机器学习系统的基础概念
+
+
+
+
+分布式训练的并行策略
+
+
+
+
+分布式训练的集群架构
+
 
 
 
@@ -414,49 +491,7 @@ Github ID：@miracle-techlink
 
 
 </div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/74a233f5.html" title="LLM分布式训练3---集群架构"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练3---集群架构"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/74a233f5.html" title="LLM分布式训练3---集群架构"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练3---集群架构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-23T07:50:53.000Z" title="发表于 2025-04-23 15:50:53">2025-04-23</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-24T04:48:27.018Z" title="更新于 2025-04-24 12:48:27">2025-04-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">LLM分布式训练3---集群架构
-
-
  
-
-
-作者：@同济大学 刘越
-Github ID：@miracle-techlink
-联系邮箱：miracle.techlink@gmail.com
-校内邮箱: 2254018@tongji.edu.cn
-
-
-
-
-
-
-
-本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。而这篇推送将主要介绍分布式训练的并行策略。
-
-
-
-分布式机器学习系统的基础概念
-
-
-
-分布式训练的并行策略
-
-
-
-分布式训练的集群架构
-
-
-
-实操DDP-以DeepSpeed 为例
-
-
-
-
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/3a50363.html" title="LLM分布式训练2---并行策略之数据并行"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练2---并行策略之数据并行"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/3a50363.html" title="LLM分布式训练2---并行策略之数据并行"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练2---并行策略之数据并行</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-23T07:50:53.000Z" title="发表于 2025-04-23 15:50:53">2025-04-23</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-24T04:34:45.908Z" title="更新于 2025-04-24 12:34:45">2025-04-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">
-LLM分布式训练2---并行策略之数据并行
-
-
-
-
 
 作者：@同济大学 刘越
 Github ID：@miracle-techlink
@@ -469,7 +504,9 @@ Github ID：@miracle-techlink
 
 
 
+
 分布式机器学习系统的基础概念
+
 
 
 
@@ -477,46 +514,9 @@ Github ID：@miracle-techlink
 
 
 
-分布式训练的集群架构
-
-
-
-实操DDP-以DeepSpeed 为例
-
-
-
-
-数据并行的数学原理数据并行的核心思想是将整个神经网络模型复制到多个计算设备上，并将训练数据分成若干子集，分配到每个计算设备上。每个计算设备独立进行前向传播和反向传播，计算出本地的梯度，并将所有设备的梯度汇总以更新模型。这个过程的关键在于梯度的同步和平均。
-在数据并行系统中，每个计算设备都有整个神经网络模型的模型副本（Model Replica），进行并行计算。每个计算设备只分配一个批次数据样本的子集 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/eac6a656.html" title="LLM分布式训练4---Deepspeed实操"><img class="post-bg" src="/images/cover_images/DDP.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLM分布式训练4---Deepspeed实操"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/eac6a656.html" title="LLM分布式训练4---Deepspeed实操"><i class="fas fa-thumbtack sticky"></i>LLM分布式训练4---Deepspeed实操</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-23T07:50:53.000Z" title="发表于 2025-04-23 15:50:53">2025-04-23</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-23T08:02:20.688Z" title="更新于 2025-04-23 16:02:20">2025-04-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/LLM/">LLM</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/DDP/">DDP</a></span></div><div class="content">LLM分布式训练4---Deepspeed实操
-
-
- 
-
-
-作者：@同济大学 刘越
-Github ID：@miracle-techlink
-联系邮箱：miracle.techlink@gmail.com
-校内邮箱: 2254018@tongji.edu.cn
-
-
-
-
-
-
-
-本章将介绍分布式机器学习系统的基础概念、分布式训练的并行策略、分布式训练的集群架构，并以 DeepSpeed 为例，介绍如何在集群上训练大语言型。而这篇推送将主要介绍分布式训练的Deepspeed实操。
-
-
-
-分布式机器学习系统的基础概念
-
-
-
-分布式训练的并行策略
-
-
 
 分布式训练的集群架构
+
 
 
 
@@ -532,7 +532,7 @@ Github ID：@miracle-techlink
             </div>
             <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI-engineering/"><span class="card-category-list-name">AI+engineering</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LLM/"><span class="card-category-list-name">LLM</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/VLA/"><span class="card-category-list-name">VLA</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">工具</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">强化学习</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"><span class="card-category-list-name">数据结构与算法</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">深度学习</span><span class="card-category-list-count">1</span></a></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/AI-engineering/" style="font-size: 1.1em; color: #999">AI+engineering</a> <a href="/tags/mathmodel/" style="font-size: 1.37em; color: #99a4b2">mathmodel</a> <a href="/tags/Datawhale/" style="font-size: 1.1em; color: #999">Datawhale</a> <a href="/tags/DDP/" style="font-size: 1.5em; color: #99a9bf">DDP</a> <a href="/tags/%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" style="font-size: 1.1em; color: #999">底层架构</a> <a href="/tags/finetune/" style="font-size: 1.23em; color: #999ea6">finetune</a> <a href="/tags/%E5%90%8E%E8%AE%AD%E7%BB%83/" style="font-size: 1.23em; color: #999ea6">后训练</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/10/"><span class="card-archive-list-date">十月 2025</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/04/"><span class="card-archive-list-date">四月 2025</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">4</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">15</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-10-31T21:51:22.986Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Liuyue</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/finetune/" style="font-size: 1.23em; color: #999ea6">finetune</a> <a href="/tags/mathmodel/" style="font-size: 1.37em; color: #99a4b2">mathmodel</a> <a href="/tags/AI-engineering/" style="font-size: 1.1em; color: #999">AI+engineering</a> <a href="/tags/Datawhale/" style="font-size: 1.1em; color: #999">Datawhale</a> <a href="/tags/DDP/" style="font-size: 1.5em; color: #99a9bf">DDP</a> <a href="/tags/%E5%BA%95%E5%B1%82%E6%9E%B6%E6%9E%84/" style="font-size: 1.1em; color: #999">底层架构</a> <a href="/tags/%E5%90%8E%E8%AE%AD%E7%BB%83/" style="font-size: 1.23em; color: #999ea6">后训练</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/10/"><span class="card-archive-list-date">十月 2025</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/05/"><span class="card-archive-list-date">五月 2025</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/04/"><span class="card-archive-list-date">四月 2025</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">4</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">15</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-11-05T06:32:22.717Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Liuyue</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
 POWERMODE.mobile = false;
 document.body.addEventListener('input', POWERMODE);
