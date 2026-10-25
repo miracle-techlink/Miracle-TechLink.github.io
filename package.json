@@ -1,0 +1,34 @@
+{
+  "name": "miracle-techlink-blog",
+  "version": "2.0.0",
+  "private": true,
+  "hexo": {
+    "version": "7.3.0"
+  },
+  "scripts": {
+    "build": "hexo generate",
+    "deploy": "hexo generate && hexo deploy",
+    "server": "hexo server"
+  },
+  "dependencies": {
+    "@vscode/markdown-it-katex": "^1.1.2",
+    "hexo": "^7.3.0",
+    "katex-mdit-shim": "file:vendor/katex-mdit-shim",
+    "hexo-abbrlink": "^2.2.1",
+    "hexo-butterfly-clock-anzhiyu": "^1.1.6",
+    "hexo-butterfly-wowjs": "^1.0.5",
+    "hexo-cli": "^4.3.2",
+    "hexo-deployer-git": "^4.0.0",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-feed": "^3.0.0",
+    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-searchdb": "^1.5.0",
+    "hexo-generator-sitemap": "^3.0.1",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-markdown-it": "^4.1.0",
+    "hexo-renderer-pug": "^3.0.0",
+    "hexo-renderer-stylus": "^3.0.1",
+    "hexo-theme-butterfly": "^4.13.0"
+  }
+}
