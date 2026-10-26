@@ -62,7 +62,7 @@ aside:
     enable: true
     description: 同济大学软件学院
     button:
-      enable: true
+      enable: false  # 禁用,避免和 social 重复
       icon: fab fa-github
       text: Follow Me
       link: https://github.com/miracle-techlink
