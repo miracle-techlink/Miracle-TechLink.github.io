@@ -85,6 +85,11 @@ pagination_dir: page
 # 主题(npm 安装,hexo 自动解析为 node_modules/hexo-theme-butterfly)
 theme: butterfly
 
+# 背景图:两处都要——①根配置给 stylus 编译期 hexo-config() 生成 CSS;②theme_config 给 pug 模板生成 #web_bg div
+background: url('/images/cover_images/background.jpg')
+theme_config:
+  background: url('/images/cover_images/background.jpg')
+
 # abbrlink:URL 唯一标识。已存在的 abbrlink 一律沿用,不重新生成
 abbrlink:
   alg: crc32
