@@ -4,6 +4,14 @@
 # ---------- 全站背景图(旧站配置,勿删) ----------
 background: url('/images/cover_images/background.jpg')
 
+# ---------- 首页顶部横幅(老站 page-header) ----------
+index_img: /images/cover_images/background.jpg
+
+# ---------- 侧边栏头像(老站 site-icon) ----------
+avatar:
+  img: /images/miracle%20techlink.png
+
+
 
 # ---------- 数学渲染:公式由 @vscode/markdown-it-katex 服务端渲染,此处仅注入 KaTeX 样式 ----------
 katex:
