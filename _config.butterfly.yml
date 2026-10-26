@@ -1,6 +1,10 @@
 # Butterfly 主题覆盖配置(只写与默认不同的项)
 # 完整默认配置见 node_modules/hexo-theme-butterfly/_config.yml
 
+# ---------- 全站背景图(旧站配置,勿删) ----------
+background: url('/images/cover_images/background.jpg')
+
+
 # ---------- 数学渲染:公式由 @vscode/markdown-it-katex 服务端渲染,此处仅注入 KaTeX 样式 ----------
 katex:
   enable: false
