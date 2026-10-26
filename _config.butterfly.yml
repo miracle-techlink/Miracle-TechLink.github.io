@@ -62,6 +62,18 @@ aside:
       text: Follow Me
       link: https://github.com/miracle-techlink
 
+# ---------- 首页副标题(打字机效果) ----------
+subtitle:
+  enable: true
+  effect: true
+  typed_option:
+    typeSpeed: 80
+    backSpeed: 50
+    loop: true
+  source: false
+  sub:
+    - explore the boundary of physical ai
+
 # ---------- 注入:KaTeX 样式 + footer 透明 + live2d ----------
 inject:
   head:
