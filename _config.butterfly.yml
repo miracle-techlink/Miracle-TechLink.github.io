@@ -46,6 +46,22 @@ fireworks:
   zIndex: 9999
   mobile: false
 
+# ---------- 社交链接(老站配置) ----------
+social:
+  fab fa-github: https://github.com/miracle-techlink || Github || '#24292e'
+  fas fa-envelope: mailto:miracle.techlink@gmail.com || Email || '#4a7dbe'
+
+# ---------- 侧边栏作者卡片(老站配置) ----------
+aside:
+  card_author:
+    enable: true
+    description: 同济大学软件学院
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/miracle-techlink
+
 # ---------- 注入:KaTeX 样式 + footer 透明 + live2d ----------
 inject:
   head:
