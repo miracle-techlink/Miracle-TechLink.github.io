@@ -4,9 +4,14 @@
 # ---------- 全站背景图(旧站配置,勿删) ----------
 background: url('/images/cover_images/background.jpg')
 
-# ---------- 首页顶部横幅(老站窄条,非全屏) ----------
-index_top_img_height: 400px
+# ---------- 首页顶部横幅(全屏居中,带打字机副标题) ----------
 index_img: /images/cover_images/background.jpg
+# 不设 index_top_img_height,默认 100vh 全屏
+
+# ---------- 标签/归档页:无顶部横幅(一图流) ----------
+tag_img: !!bool false
+category_img: !!bool false
+archive_img: !!bool false
 
 # ---------- 侧边栏头像(老站 site-icon) ----------
 avatar:

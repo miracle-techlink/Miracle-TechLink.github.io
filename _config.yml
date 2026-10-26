@@ -89,6 +89,9 @@ theme: butterfly
 background: url('/images/cover_images/background.jpg')
 theme_config:
   background: url('/images/cover_images/background.jpg')
+  tag_img: false
+  category_img: false
+  archive_img: false
 
 # abbrlink:URL 唯一标识。已存在的 abbrlink 一律沿用,不重新生成
 abbrlink:
