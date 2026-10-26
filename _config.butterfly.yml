@@ -79,6 +79,10 @@ subtitle:
   sub:
     - explore the boundary of physical ai
 
+# ---------- 全局字体调大(默认14px→18px) ----------
+font:
+  global-font-size: 18px
+
 # ---------- 注入:KaTeX 样式 + footer 透明 + live2d ----------
 inject:
   head:
