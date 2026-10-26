@@ -4,3 +4,4 @@ db.json
 bench/
 ref/
 .npmrc
+.deploy_git/
