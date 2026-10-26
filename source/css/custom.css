@@ -1,0 +1,4 @@
+/* 覆盖 Butterfly 默认的蓝色 footer 背景 */
+#footer {
+  background-color: transparent !important;
+}

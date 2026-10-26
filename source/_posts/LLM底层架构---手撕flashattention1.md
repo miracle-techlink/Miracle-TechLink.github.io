@@ -4,8 +4,8 @@ date: 2025-04-27 00:00:00
 updated: 2025-04-27 00:00:00
 tags:
   - 底层架构
+top_img: false
 cover: /images/cover_images/flashattention.png
-top_img: /images/cover_images/flashattention.png
 abbrlink: df2d3022
 ---
 
