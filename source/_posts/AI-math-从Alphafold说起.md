@@ -4,6 +4,8 @@ date: 2024-09-22 00:00:00
 updated: 2024-10-17 00:00:00
 tags:
   - mathmodel
+cover: /images/cover_images/alphafold.jpg
+top_img: /images/cover_images/alphafold.jpg
 abbrlink: 9d1cf8ae
 ---
 

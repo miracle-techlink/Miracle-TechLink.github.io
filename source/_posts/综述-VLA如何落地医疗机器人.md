@@ -4,6 +4,8 @@ date: 2025-10-27 00:00:00
 updated: 2025-10-29 00:00:00
 tags:
   - 后训练
+cover: /images/cover_images/VLA-postrain1.jpg
+top_img: /images/cover_images/VLA-postrain1.jpg
 abbrlink: 20040508
 ---
 
