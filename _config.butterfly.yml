@@ -60,7 +60,7 @@ social:
 aside:
   card_author:
     enable: true
-    description: 同济大学软件学院
+    description: explore the boundary of physical ai
     button:
       enable: false  # 禁用,避免和 social 重复
       icon: fab fa-github
