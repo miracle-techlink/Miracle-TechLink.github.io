@@ -32,10 +32,11 @@ local_search:
   preload: false
   top_n_per_article: 1
 
+# 不蒜子数据 API 已超时挂掉(2026-10),统计项全关,避免资讯卡片永久转圈
 busuanzi:
-  site_uv: true
-  site_pv: true
-  page_pv: true
+  site_uv: false
+  site_pv: false
+  page_pv: false
 
 fancybox: true
 
