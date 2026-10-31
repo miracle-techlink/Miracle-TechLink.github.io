@@ -62,14 +62,30 @@ aside:
   card_author:
     enable: true
     description: explore the boundary of physical ai
-  card_announcement:
-    enable: true
-    content: i am now in lingbot embodied intelligence group
     button:
       enable: false  # 禁用,避免和 social 重复
       icon: fab fa-github
       text: Follow Me
       link: https://github.com/miracle-techlink
+  card_announcement:
+    enable: true
+    content: i am now in lingbot embodied intelligence group
+  card_webinfo:
+    enable: true
+    post_count: true
+    last_push_date: true
+
+# 运行天数(建站 2020,与 footer ©2020 对齐)
+runtimeshow:
+  enable: true
+  site_uptime: 2020/09/17 00:00:00
+
+# 字数统计(需 hexo-wordcount 插件)
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
 
 # ---------- 首页副标题(打字机效果) ----------
 subtitle:
