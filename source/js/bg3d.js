@@ -11,11 +11,15 @@
     if (!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))) return;
   } catch (e) { return; }
 
-  // 动态加载 three.js
-  var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';
-  s.onload = init;
-  document.head.appendChild(s);
+  // three.js 已由 inject 提前加载则直接初始化,否则动态加载兜底
+  if (window.THREE) {
+    init();
+  } else {
+    var s = document.createElement('script');
+    s.src = '/js/three.min.js';
+    s.onload = init;
+    document.head.appendChild(s);
+  }
 
   function init() {
     var THREE = window.THREE;
