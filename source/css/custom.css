@@ -3,6 +3,15 @@
   background-color: transparent !important;
 }
 
+/* 3D 粒子波场背景:静态背景图压暗做底,粒子层更突出 */
+#web_bg {
+  filter: brightness(0.35) saturate(0.8);
+}
+
+#bg3d canvas {
+  display: block;
+}
+
 /* 首页标题与打字机副标题调大 */
 #page-header.full_page #site-title {
   font-size: 4em !important;

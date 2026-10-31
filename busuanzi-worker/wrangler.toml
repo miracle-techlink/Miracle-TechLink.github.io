@@ -1,0 +1,8 @@
+name = "busuanzi-blog"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[[kv_namespaces]]
+binding = "COUNTS"
+# 部署后填你的 KV namespace id:
+# id = "在 CF Dashboard → Storage & Databases → KV → 创建后复制 ID"
