@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>AI+math|从Alphafold说起</title>
+    <url>/posts/9d1cf8ae.html</url>
+    <content><![CDATA[<h1>AI+math|从Alphafold说起</h1>
+<h2 id="引言">引言</h2>
+<blockquote></blockquote>
+<p>作者：@同济大学 刘越</p>
+<p>Github ID：@miracle-techlink</p>
+<p>联系邮箱：<a href="mailto:miracle.techlink@gmail.com">miracle.techlink@gmail.com</a></p>
+<p>校内邮箱: <a href="mailto:2254018@tongji.edu.cn">2254018@tongji.edu.cn</a></p>
+<p><strong>特别感谢以下组织和个人提供的帮助：</strong>
+<a href="https://github.com/datawhalechina">Datawhale开源学习社区</a> （点击链接进入其github教程仓库）
+集智俱乐部(<a href="https://pattern.swarma.org/user/116904">https://pattern.swarma.org/user/116904</a>) (点击链接进入官网)
+@同济大学数学科学学院陈小杨教授 （邮箱：<a href="mailto:xychen100@tongji.edu.cn">xychen100@tongji.edu.cn</a>）</p>
+<p>2024年诺贝尔化学奖授予大卫·贝克（David Baker）、戴米斯·哈萨比斯（Demis Hassabis）和约翰·江珀（John M.Jumper），以表彰他们在蛋白质设计和蛋白质结构预测领域作出的贡献。他们与Deepmind公司在2020年发布的lphaFold2算法，在蛋白质结构预测领域取得了重大突破，其预测结果与实验结果高度一致，为生物科学领域带来了革命性的影响。我们今天就一起走进AlphaFold的世界，了解其背后的原理，体验其强大的预测能力，并探讨分子结构预测问题在AI领域的学术前沿。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101201.jpg" alt="框架图"></p>
+<p>这次我们的分享主要分为三个部分：</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>alphafold原理简介与demo体验</p>
+</li>
+<li>
+<p>AI+化学算法比赛解读与baseline体验</p>
+</li>
+<li>
+<p>分子结构预测问题学术前沿探讨</p>
+</li>
+</ul>
+<p><strong>参考链接：</strong>(如有侵权，请联系删除)</p>
+<ol>
+<li>
+<p><a href="https://blog.csdn.net/tostq/article/details/134664076">AlphaFold的原理及解读</a></p>
+</li>
+<li>
+<p><a href="">实用教程:使用AlphaFold2进行蛋白质结构在线预测</a></p>
+</li>
+<li>
+<p><a href="https://datawhaler.feishu.cn/wiki/Xnk9wP9yeiVN5jkVyJhcC3s0nKf">Datawhale AI+化学算法比赛飞书教程</a></p>
+</li>
+<li>
+<p><a href="https://pattern.swarma.org/study_group_issue/517">集智俱乐部讲座：计算蛋白质设计：从AlphaFold到强化学习</a></p>
+</li>
+<li>
+<p><a href="https://pattern.swarma.org/study_group_issue/605">集智俱乐部讲座: 拓扑几何增强化学分子模型</a></p>
+</li>
+</ol>
+<h2 id="Alphafold原理简介与demo体验">Alphafold原理简介与demo体验</h2>
+<h3 id="Alphafold-简介">Alphafold 简介</h3>
+<p>蛋白质通过卷曲折叠会构成三维结构，蛋白质的功能正由其结构决定。了解蛋白质结构有助于开发治疗疾病的药物。而蛋白质的结构非常复杂，通过实验手段获取蛋白质结构非常困难，因此需要通过计算手段预测蛋白质结构。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101202.png" alt="框架图"></p>
+<p>AlphaFold2是DeepMind公司于2020年发布的蛋白质结构预测算法，其核心思想是通过深度学习模型预测蛋白质的三维结构。AlphaFold2在蛋白质结构预测领域取得了重大突破，其预测结果与实验结果高度一致，为生物科学领域带来了革命性的影响。</p>
+<p>AlphaFold2的主要创新点在于其使用了Transformer模型，这是一种基于自注意力机制的深度学习模型，可以有效地捕捉蛋白质序列中的长距离依赖关系。此外，AlphaFold2还使用了大量的蛋白质结构数据，通过大规模的训练，使得模型能够更好地预测蛋白质的三维结构。</p>
+<h3 id="Alphafold2-算法原理">Alphafold2 算法原理</h3>
+<p><a href="https://www.nature.com/articles/s41586-021-03819-2">Nature论文：Highly accurate protein structure prediction with AlphaFold</a></p>
+<p>AlphaFold根据深度学习技术，通过输入蛋白质一级结构来解析二级结构及三级结构，而一级结构为一组蛋白质氨基酸序列，但是AlphaFold的特征并不只是输入蛋白质氨基酸序列，而包含了多种相关信息。</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>氨基酸的排列：AlphaFold会用一种特殊的编码方式（one-hot向量）来表示每个氨基酸，并记录序列的长度。</p>
+</li>
+<li>
+<p>氨基酸的编号：它会为序列中的每个氨基酸分配一个编号。</p>
+</li>
+<li>
+<p>相似蛋白质的比较：AlphaFold会寻找其他相似的蛋白质序列，来帮助预测当前蛋白质的结构。</p>
+</li>
+<li>
+<p>不同蛋白质的比较：除了相似的，它也会看看那些不相似的蛋白质序列。</p>
+</li>
+<li>
+<p>氨基酸之间的相互作用：AlphaFold还会考虑氨基酸之间的位置关系和角度关系。</p>
+</li>
+</ul>
+<p><img src="/./images/insert_images/Alphafold/2024101203.png" alt="框架图"></p>
+<p>所有这些信息会被处理和整合，然后输入到AlphaFold的神经网络中。这个网络有几个重要的部分：</p>
+<p>AlphaFold 的架构包含多个关键组件，以下是其主要组成部分的总结：</p>
+<p><img src="/./images/insert_images/Alphafold/2024101204.png" alt="框架图"></p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>多序列比对：帮助AlphaFold理解蛋白质序列的进化关系。</p>
+</li>
+<li>
+<p>Evoformer模块：处理输入的信息，并提取重要的特征。</p>
+</li>
+<li>
+<p>结构模块：开始构建蛋白质的三维模型。</p>
+</li>
+<li>
+<p>注意力机制：让模型能够关注到序列中重要的部分。</p>
+</li>
+<li>
+<p>迭代细化：通过多次迭代来提高预测的准确性。</p>
+</li>
+<li>
+<p>端到端预测：直接从氨基酸序列预测出三维结构。</p>
+</li>
+<li>
+<p>自我蒸馏和数据增强：通过预测未标记的序列来提高模型的准确性。</p>
+</li>
+<li>
+<p>损失函数和评估指标：使用多种方法来评估和优化模型的预测。</p>
+</li>
+</ul>
+<h2 id="Alphafold2-demo体验">Alphafold2 demo体验</h2>
+<p>若需要用源项目复现的同学，可以参考以下链接：
+<a href="https://github.com/google-deepmind/alphafold">AlphaFold2源码</a>
+<a href="https://blog.csdn.net/qq_27815483/article/details/139771576?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=alphafold2%E5%8E%9F%E7%90%86&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-139771576.142%5Ev100%5Epc_search_result_base6&amp;spm=1018.2226.3001.4187">alphafold2_jax预测蛋白质三维结构的深度学习模型</a></p>
+<p>对于大多数做生物的同学，其实并不关心AlphaFold2的原理，也没有使用服务器的条件，只想简单方便地预测一个蛋白质的结构。那谷歌的Colaboratory也提供了在线使用版本。如果没有梯子的话，也没有关系，可以在讲座结束后自行下载体验。</p>
+<p>请同学们点击以下链接，体验一下AlphaFold2的强大功能：<a href="https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb">AlphaFlod Colab</a></p>
+<p>进入Colab界面后，只需要输入自己想预测的序列和项目名称，即可：</p>
+<p><img src="/./images/insert_images/Alphafold/2024101205.png" alt="框架图"></p>
+<p>运行方法也很简单，选择代码执行程序-&gt;全部运行即可</p>
+<p><img src="/./images/insert_images/Alphafold/2024101206.png" alt="框架图"></p>
+<p>AlphaFold2参数修改</p>
+<p>除了使用默认设定参数外，还可以根据实际需求修改部分参数，如：Advanced settings中的number_recycles，这个参数可以理解为是每个模型的循环次数，默认是3，循环次数越多相对应的准确度也会高一点，但运行时间也会越长。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101207.png" alt="框架图"></p>
+<p>每次运行所产生的模型数也可以修改，在Run Prediction中，点击显示代码即可展开代码片：</p>
+<p><img src="/./images/insert_images/Alphafold/2024101208.png" alt="框架图"></p>
+<p>其中我们要修改的是num_moldels，直接改数字即可修改每次运行时产生的模型数。如果模型数大于5的话，最好把下面的model_order也跟着修改了，就把数字补齐到你的模型数即可。</p>
+<p>耐心等到运行结束，就可以看到预测的蛋白质结构了，点击3D View即可查看：</p>
+<p><img src="/./images/insert_images/Alphafold/2024101209.png" alt="框架图"></p>
+<h2 id="AI-化学算法比赛解读与baseline体验">AI+化学算法比赛解读与baseline体验</h2>
+<h3 id="赛题解读">赛题解读</h3>
+<p><strong>背景知识</strong>
+碳氮成键反应、Diels-Alder环加成反应等一系列催化合成反应，被广泛应用于各类药物的生产合成中。研究人员与产业界在针对特定反应类型开发新的催化合成方法时，往往追求以高产率获得目标产物，也即开发高活性的催化反应体系，以提升原子经济性，减少资源的浪费与环境污染。然而，开发具有高活性的催化反应体系通常需要对包括催化剂和溶剂在内的多种反应条件进行详尽的探索，这导致了它成为了一项极为耗时且资源密集的任务。这要求对包括催化剂和溶剂在内的多种反应条件进行详尽的探索。目前，反应条件的筛选在很大程度上依赖于经验判断和偶然发现，导致催化反应条件的优化过程既耗时又费力，并且严重制约了新的高效催化合成策略的开发。</p>
+<p>反应底物和反应条件是决定其产率的关键因素。因此，我们可以利用AI模型来捕捉底物、条件与产率之间的内在联系。借助产率预测AI模型，仅需输入底物和条件的信息，我们就能够预测该反应组合下的产率，从而有效提升催化反应的条件筛选效率。</p>
+<p><strong>任务目标</strong></p>
+<blockquote></blockquote>
+<ul>
+<li>构建一个能够准确预测碳氮成键反应产率的预测模型</li>
+</ul>
+<p>通过对反应中所包含的反应底物、添加剂、溶剂以及产物进行合理的特征化，运用机器学习模型或者深度学习模型拟合预测反应的产率，或者利用训练集数据对开源大语言模型进行微调以预测反应的产率。</p>
+<p><strong>数据集介绍</strong></p>
+<p><img src="/./images/insert_images/Alphafold/2024101212.png" alt="框架图"></p>
+<p><strong>评价指标</strong>
+<img src="/./images/insert_images/Alphafold/2024101213.png" alt="框架图"></p>
+<h3 id="Baseline：基于SMILES与随机森林的化学分子结构预测">Baseline：基于SMILES与随机森林的化学分子结构预测</h3>
+<p>首先，我们打开Datawhale的飞书教程—<a href="https://datawhaler.feishu.cn/wiki/Xnk9wP9yeiVN5jkVyJhcC3s0nKf">教程链接</a>，并且找到baseline1的代码压缩包，将其下载到本地。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101210.png" alt="框架图"></p>
+<p>随后我们在网页端打开modelscope的Notebook页面（没有注册账号的同学可以用手机号注册一个），进入其中的CPU云环境。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101211.png" alt="框架图"></p>
+<p>在Notebook中，我们需要完成以下操作：</p>
+<blockquote></blockquote>
+<p><strong>1.</strong> 将下载好的代码压缩包上传到云环境中。
+<strong>2.</strong> 打开终端terminal。
+<strong>3.</strong> 在终端输入  unzip AI+化学baseline文件包.zip  ，解压文件。
+<strong>4.</strong> 进入mp文件夹，进入code二级目录，找到Task1_baseline.ipynb文件。
+<strong>5.</strong> 重启kernel，点击 “run all” 运行代码。
+<strong>6.</strong> 执行完成后，下载submit.txt,查看预测结果。</p>
+<p>接下来，乘着代码运行的时间，我们来分析一下baseline的代码，看看它到底是怎么实现的。</p>
+<p><strong>特征表示方法</strong>
+无论是蛋白质分子结构，还是化学分子，键的位置信息。如何采用合适的特征表示方法，将分子结构信息转化为模型可读的输入，都是长时间以来研究者们关注的重点。例如，一开始例如，科学家们尝试通过一些规则来提取特征，并将其保存在数据库中。但是，这种方法存在一些问题，比如，它不能很好地处理分子中的环结构，而且特征提取过程比较复杂。</p>
+<p><strong>SMILES —— 最流行的将分子表示为序列类型数据的方法</strong></p>
+<p>SMILES，提出者Weininger et al[1]，全称是Simplified Molecular Input Line Entry System，是一种将化学分子用ASCII字符表示的方法，在化学信息学领域有着举足轻重的作用。当前对于分子和化学式的储存形式，几乎都是由SMILES（或者它的一些手足兄弟）完成的。使用非常广泛的分子/反应数据库，例如ZINC[2]，ChemBL[3]，USPTO[4]等，都是采用这种形式存储。SMILES将化学分子中涉及的原子、键、电荷等信息，用对应的ASCII字符表示；环、侧链等化学结构信息，用特定的书写规范表达。以此，几乎所有的分子都可以用特定的SMILES表示，且SMILES的表示还算比较直观。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101214.png" alt="框架图"></p>
+<p>官方发布的数据是对化学分子的SMILES表达式，具体来说，有rxnid,Reactant1,Reactant2,Product,Additive,Solvent,Yield字段。其中：</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>rxnid 对数据的id标识，无实际意义</p>
+</li>
+<li>
+<p>Reactant1 反应物1</p>
+</li>
+<li>
+<p>Reactant2 反应物2</p>
+</li>
+<li>
+<p>Product 产物</p>
+</li>
+<li>
+<p>Additive 添加剂（包括催化剂catalyst等辅助反应物合成但是不对产物贡献原子的部分）</p>
+</li>
+<li>
+<p>Solvent 溶剂</p>
+</li>
+<li>
+<p>Yield 产率 其中Reactant1,Reactant2,Product,Additive,Solvent都是由SMILES表示。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">mfgen</span>(<span class="params">mol,nBits=<span class="number">2048</span>, radius=<span class="number">2</span></span>):</span><br><span class="line">    <span class="comment"># 返回分子的位向量形式的Morgan fingerprint</span></span><br><span class="line">    fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol,radius=radius,nBits=nBits)</span><br><span class="line">    <span class="keyword">return</span> np.array(<span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">eval</span>,<span class="built_in">list</span>(fp.ToBitString()))))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vec_cpd_lst</span>(<span class="params">smi_lst</span>):</span><br><span class="line">    smi_set = <span class="built_in">list</span>(<span class="built_in">set</span>(smi_lst))</span><br><span class="line">    smi_vec_map = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> smi <span class="keyword">in</span> tqdm(smi_set): <span class="comment"># tqdm：显示进度条</span></span><br><span class="line">        mol = Chem.MolFromSmiles(smi)</span><br><span class="line">        smi_vec_map[smi] = mfgen(mol)</span><br><span class="line">    smi_vec_map[<span class="string">&#x27;&#x27;</span>] = np.zeros(<span class="number">2048</span>)</span><br><span class="line">    vec_lst = [smi_vec_map[smi] <span class="keyword">for</span> smi <span class="keyword">in</span> smi_lst]</span><br><span class="line">    <span class="keyword">return</span> np.array(vec_lst)</span><br></pre></td></tr></table></figure>
+<p><strong>分子指纹 —— 分子向量化</strong>
+分子的指纹就像人的指纹一样，用于表示特定的分子。分子指纹是一个具有固定长度的位向量（即由0，1组成），其中，每个为1的值表示这个分子具有某些特定的化学结构。例如，对于一个只有长度为2的分子指纹，我们可以设定第一个值表示分子是否有甲基，第二个位置的值表示分子是都有苯环，那么[0,1]的分子指纹表示的就是一个有苯环而没有甲基的分子。通常，分子指纹的维度都是上千的，也即记录了上千个子结构是否出现在分子中。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101215.png" alt="框架图"></p>
+<p>我们可以用python中的RDKIT库来计算分子指纹。RDkit是化学信息学中主要的工具，是开源的。网址：<a href="http://www.rdkit.org,%E6%94%AF%E6%8C%81win/MAC/Linux%EF%BC%8C%E5%8F%AF%E4%BB%A5%E8%A2%ABpython%E3%80%81Java%E3%80%81C%E8%B0%83%E7%94%A8%E3%80%82%E5%87%A0%E4%B9%8E%E6%89%80%E6%9C%89%E7%9A%84%E4%B8%8E%E5%8C%96%E5%AD%A6%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%86%85%E5%AE%B9%E9%83%BD%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%B8%8A%E9%9D%A2%E6%89%BE%E5%88%B0%E3%80%82%E5%B8%B8%E7%94%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E5%8C%85%E6%8B%AC%E4%BD%86%E4%B8%8D%E9%99%90%E4%BA%8E%EF%BC%9A">http://www.rdkit.org，支持WIN\MAC\Linux，可以被python、Java、C调用。几乎所有的与化学信息学相关的内容都可以在上面找到。常用的功能包括但不限于：</a></p>
+<ol>
+<li>
+<p>读和写分子；</p>
+</li>
+<li>
+<p>循环获取分子中原子、键、环的信息；</p>
+</li>
+<li>
+<p>修饰分子；</p>
+</li>
+<li>
+<p>获取分子指纹；</p>
+</li>
+<li>
+<p>计算分子相似性；</p>
+</li>
+<li>
+<p>将分子绘制为图片；</p>
+</li>
+<li>
+<p>子结构匹配和搜索；</p>
+</li>
+<li>
+<p>生成和优化3D结构。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从csv中读取数据</span></span><br><span class="line">train_rct1_smi = train_df[<span class="string">&#x27;Reactant1&#x27;</span>].to_list()</span><br><span class="line">train_rct2_smi = train_df[<span class="string">&#x27;Reactant2&#x27;</span>].to_list()</span><br><span class="line">train_add_smi = train_df[<span class="string">&#x27;Additive&#x27;</span>].to_list()</span><br><span class="line">train_sol_smi = train_df[<span class="string">&#x27;Solvent&#x27;</span>].to_list()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将SMILES转化为分子指纹</span></span><br><span class="line">train_rct1_fp = vec_cpd_lst(train_rct1_smi)</span><br><span class="line">train_rct2_fp = vec_cpd_lst(train_rct2_smi)</span><br><span class="line">train_add_fp = vec_cpd_lst(train_add_smi)</span><br><span class="line">train_sol_fp = vec_cpd_lst(train_sol_smi)</span><br><span class="line"><span class="comment"># 在dim=1维度进行拼接。即：将一条数据的Reactant1,Reactant2,Product,Additive,Solvent字段的morgan fingerprint拼接为一个向量。</span></span><br><span class="line">train_x = np.concatenate([train_rct1_fp,train_rct2_fp,train_add_fp,train_sol_fp],axis=<span class="number">1</span>)</span><br><span class="line">train_y = train_df[<span class="string">&#x27;Yield&#x27;</span>].to_numpy()</span><br></pre></td></tr></table></figure>
+<p>在预测算法中，我们选取机器学习中经典的随机森林进行建模。</p>
+<p><strong>sklearn (scikit-learn)</strong>
+这是一个非常广泛使用的开源机器学习库，基于Python，建立在NumPy、SciPy、Pandas和Matplotlib等数据处理和分析的库之上。它涵盖了几乎所有主流机器学习算法，包括分类、回归、聚类、降维等。API设计亲民，整个使用简单易上手，非常适合作为机器学习入门的工具。 官网：<a href="https://scikit-learn.org/stable/index.html">https://scikit-learn.org/stable/index.html</a></p>
+<p>在sklearn中，几乎所有的机器学习的流程是：</p>
+<blockquote></blockquote>
+<p>1.实例化模型（并指定重要参数）；
+2.model.fit(x, y) 训练模型；
+3.随机森林</p>
+<p><strong>参数解释：</strong></p>
+<blockquote></blockquote>
+<p>1.n_estimators=10： 决策树的个数，越多越好；但是越多意味着计算开销越大；
+2.max_depth: (default=None)设置树的最大深度，默认为None；
+3.min_samples_split: 根据属性划分节点时，最少的样本数；
+4.min_samples_leaf: 叶子节点最少的样本数；
+5.n_jobs=1： 并行job个数，-1表示使用所有cpu进行并行计算</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Model fitting</span></span><br><span class="line">model = RandomForestRegressor(n_estimators=<span class="number">10</span>,max_depth=<span class="number">10</span>,min_samples_split=<span class="number">2</span>,min_samples_leaf=<span class="number">1</span>,n_jobs=-<span class="number">1</span>) <span class="comment"># 实例化模型，并指定重要参数</span></span><br><span class="line">model.fit(train_x,train_y) <span class="comment"># 训练模型</span></span><br><span class="line"><span class="comment"># 保存模型</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;./random_forest_model.pkl&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    pickle.dump(model, file)</span><br><span class="line"><span class="comment"># 加载模型</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;random_forest_model.pkl&#x27;</span>, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    loaded_model = pickle.load(file)</span><br><span class="line"><span class="comment"># 预测\推理</span></span><br><span class="line">test_pred = loaded_model.predict(test_x)</span><br></pre></td></tr></table></figure>
+<h3 id="Baseline优化思路：基于transformer架构或大模型">Baseline优化思路：基于transformer架构或大模型</h3>
+<p>虽然传统的机器学习模型在化学分子预测任务中取得了显著的成果，但它们通常需要大量的特征工程和复杂的模型结构来捕捉分子中的复杂关系。近年来，基于Transformer的模型在自然语言处理和计算机视觉等领域取得了巨大的成功，并在化学分子预测任务中也得到了广泛的应用，其相比机器学习的优点如下：</p>
+<p>1.XGBoost和随机森林等传统模型虽然也能捕捉非线性关系，但它们通常需要更多的特征工程来提取有用的信息，并且对于数据中长距离依赖的捕捉能力较弱。而且需要将序列数据转换为固定长度的特征向量，这可能会丢失一些重要信息。</p>
+<p>2.化学分子可以通过SMILES字符串来表示，这是一种序列数据。Transformer模型，特别是序列到序列（Seq2Seq）模型，非常擅长处理序列数据。它们可以捕捉到序列中长距离的依赖关系，这对于理解分子中原子和键的关系至关重要。</p>
+<p>3.而Transformer模型核心—注意力机制，它允许模型在处理序列时动态地关注序列的不同部分。在化学反应中，某些原子或键可能对产率有更大的影响，注意力机制可以帮助模型识别这些重要的特征。</p>
+<p>4.在计算策略上，Transformer模型可以并行处理整个序列，这对于处理大规模的化学分子数据非常有用。</p>
+<p>具体可以参考以下教程内容：<a href="https://datawhaler.feishu.cn/wiki/WDJ6wC85JityxDka4O7cv7l4nqxFJ6wC85JityxDka4O7cv7l4nqx">基于transformer架构的化学反应预测</a> , <a href="https://github.com/miracle-techlink/AI-chem_baseline/blob/main/Task3_Transformer.ipynb">Baseline链接</a></p>
+<p>当然，也可以结合当下最火爆的大模型技术来进行研究,我们可以通过提示词工程（Prompt Engineering）来引导大模型进行预测，结合GPT-3、ChatGLM等模型。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">你精通预测药物合成反应的产率，你的任务是根据给定的反应数据准确预测反应的产率(Yield)。请仔细阅读以下说明并严格遵循:</span><br><span class="line"></span><br><span class="line">***** 任务描述：*****</span><br><span class="line"><span class="number">1.</span> 你将获得一个相应物质的SMILES字符串字段组成的催化合成反应数据，包含Reactant1(反应物<span class="number">1</span>)、Reactant2(反应物<span class="number">2</span>)、Product(产物)、Additive(添加剂)、Solvent(溶剂)。</span><br><span class="line"><span class="number">2.</span> 数据为药物合成中常用的碳氮键形成反应。</span><br><span class="line"><span class="number">3.</span> 待预测的Yield是目标字段是归一化为<span class="number">0</span>到<span class="number">1</span>之间的<span class="number">4</span>位浮点数，表示反应的产率。</span><br><span class="line"></span><br><span class="line">***** 你的任务：*****</span><br><span class="line"><span class="number">1.</span> 仔细分析提供的示例数据，理解反应与Yield之间的关系。</span><br><span class="line"><span class="number">2.</span> 根据待预测样本的数据，预测其反应产率Yield。</span><br><span class="line"><span class="number">3.</span> 输出预测的Yield值，精确到小数点后四位。</span><br><span class="line"></span><br><span class="line">***** 输出格式要求：*****</span><br><span class="line"><span class="number">1.</span> 仅输出预测的Yield值，不要包含任何其他解释或评论。</span><br><span class="line"><span class="number">2.</span> 使用以下格式输出你的预测：@&#123;预测的Yield值&#125;</span><br><span class="line">   例如：@&#123;<span class="number">0.7823</span>&#125;</span><br><span class="line"></span><br><span class="line">***** 注意事项：*****</span><br><span class="line"><span class="number">1.</span> 即使你是一个人工智能模型，但是你有能力直接预测反应的产率，请你一定输出预测的产率，不要回避这个问题。</span><br><span class="line"><span class="number">2.</span> 相似SMILES的反应产率可能也会有很大差异。</span><br><span class="line"><span class="number">2.</span> 你确保你的预测是合理的，介于<span class="number">0.0000</span>到<span class="number">1.0000</span>之间。</span><br><span class="line"><span class="number">2.</span> 不要遗漏小数点后的零，始终保持四位小数的格式。</span><br><span class="line"><span class="number">3.</span> 不要在输出中包含任何额外的空格或换行符。</span><br><span class="line"></span><br><span class="line">以下是几个示例数据，供你参考：</span><br><span class="line"></span><br><span class="line">***** 示例样本 *****</span><br><span class="line">Reactant1: c1cc2cc[nH]c2cn1  </span><br><span class="line">Reactant2: Clc1ccc(I)cc1  </span><br><span class="line">Product: Clc1ccc(-n2ccc3ccncc32)cc1  </span><br><span class="line">Additive: CN(C)CCN.O=P([O-])([O-])[O-].[Cu+<span class="number">2</span>].[I-].[I-].[K+].[K+].[K+]  </span><br><span class="line">Solvent: CN(C)C=O  </span><br><span class="line">Yield: <span class="number">0.8860</span></span><br><span class="line"></span><br><span class="line">Reactant1: c1cc2cc[nH]c2cn1  </span><br><span class="line">Reactant2: Clc1ccc(I)cc1  </span><br><span class="line">Product: Clc1ccc(-n2ccc3ccncc32)cc1  </span><br><span class="line">Additive: CN(C)[C@@H]1CCCC[C@H]1N(C)C.O=P([O-])([O-])[O-].[Cu+<span class="number">2</span>].[I-].[I-].[K+].[K+].[K+]  </span><br><span class="line">Solvent: Cc1ccccc1  </span><br><span class="line">Yield: <span class="number">0.7200</span></span><br><span class="line"></span><br><span class="line">Reactant1: c1cc2cc[nH]c2cn1  </span><br><span class="line">Reactant2: O=[N+]([O-])c1ccc(F)nc1  </span><br><span class="line">Product: O=[N+]([O-])c1ccc(-n2ccc3ccncc32)nc1  </span><br><span class="line">Additive: O=C([O-])[O-].[Cs+].[Cs+]  </span><br><span class="line">Solvent: CN(C)C=O  </span><br><span class="line">Yield: <span class="number">0.6400</span></span><br><span class="line"></span><br><span class="line">现在，请基于以上示例和说明，预测以下反应的产率：</span><br><span class="line"></span><br><span class="line">**** 待预测样本 ****</span><br><span class="line">Reactant1: c1cc2cc[nH]c2cn1  </span><br><span class="line">Reactant2: Clc1ccc(I)cc1  </span><br><span class="line">Product: Clc1ccc(-n2ccc3ccncc32)cc1  </span><br><span class="line">Additive: CNCCNC.O=P([O-])([O-])[O-].[Cu+<span class="number">2</span>].[I-].[I-].[K+].[K+].[K+] </span><br><span class="line">Solvent: CN(C)C=O  </span><br><span class="line">Yield: @&#123;&#125;</span><br><span class="line"></span><br><span class="line">请仅输出产率预测值，格式如下：</span><br><span class="line"><span class="meta">@&#123;预测的Yield值&#125;</span></span><br></pre></td></tr></table></figure>
+<p>具体可以参考教程：<a href="https://datawhaler.feishu.cn/wiki/KgOWw5HWRiinTXkytrEcS0uJnIe">大模型预测飞书教程</a></p>
+<h2 id="分子结构预测问题学术前沿探讨">分子结构预测问题学术前沿探讨</h2>
+<p>无论是化学分子结构预测还是蛋白质结构预测，都是人工智能领域的重要研究方向。近年来，随着深度学习技术的快速发展，越来越多的研究者开始关注这些问题的解决方法。在本文中，我们将介绍一些分子结构预测问题的学术前沿，并探讨如何使用深度学习技术来解决这些问题。</p>
+<h3 id="拓扑几何与分子结构预测">拓扑几何与分子结构预测</h3>
+<p><strong>研究背景</strong>
+在材料科学研究中，准确预测材料的性质对于新材料的开发和现有材料的性能改进至关重要。机器学习（ML）技术能够通过学习大量的数据构建预测模型，从而加速材料设计过程。在这一过程中，描述符或特征的选择对于机器学习模型的性能有着决定性的影响。传统的密度泛函理论（DFT）计算虽然准确，但是计算成本高且耗时。因此，研究者们一直在寻找一种既保持尺度不变性（旋转、平移不变）又能高效描述晶体化合物的方法。</p>
+<p><strong>该论文在nature上的链接：</strong><a href="https://www.nature.com/articles/s41524-021-00493-w">Topological representations of crystalline compounds for the machine-learning prediction of materials properties,</a></p>
+<p><img src="/./images/insert_images/Alphafold/2024101223.png" alt="框架图"></p>
+<p><strong>研究方法</strong>
+本研究提出了一种基于原子特异性持续同调（ASPH）的方法，用于生成晶体化合物的拓扑表示，以预测它们的物理性质。研究方法包括以下几个关键步骤：</p>
+<p><img src="/./images/insert_images/Alphafold/2024101224.png" alt="框架图"></p>
+<blockquote></blockquote>
+<p>1.单形和单纯复形：定义了k-单形的概念，并构建了单纯复形来表示晶体结构。</p>
+<p>2.同调：利用同调理论来描述晶体结构中的拓扑特征，如孤立点、环和空洞。</p>
+<p>3.过滤和持续同调：通过改变过滤参数生成一系列拓扑空间，以捕捉不同尺度上的拓扑特征。</p>
+<p>4.原子特异性持续同调：引入ASPH方法，通过考虑原子类型特异性，生成能够描述原子对和多体相互作用的拓扑特征。</p>
+<p>5.拓扑表征：结合组成特征、化学计量属性、电子结构属性等，生成晶体化合物的拓扑表征。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101225.png" alt="框架图"></p>
+<p>研究者们应用了来自ICSD和OQMD的大型数据集，通过交叉验证将所提出的方法与Voronoi镶嵌和库伦矩阵等先前方法进行比较。</p>
+<p><strong>研究结果</strong></p>
+<p>研究结果表明，ASPH方法能够以较低的平均绝对误差（61 meV/atom）预测晶体化合物的性质。与Voronoi镶嵌和库伦矩阵等传统方法相比，ASPH方法在预测精度上有显著提升。此外，研究还分析了模型预测中误差较大的异常值与DFT计算的关系，并探索了部分化合物更容易导致模型预测产生较大偏差的原因。</p>
+<p>ASPH方法的拓扑表征能够捕获成对和多体相互作用，并揭示一组原子在不同尺度上的拓扑性质关系。这种方法不仅提高了模型的性能，而且由于其基于代数拓扑的特性，提供了一种物理上更可解释的预测结果。</p>
+<p><strong>总结与展望</strong>
+本研究成功地将ASPH方法应用于材料科学分析，并将多尺度几何信息嵌入拓扑不变量中，处理具有结构周期性和元素多样性的晶体化合物。尽管ASPH方法在小数据量下可能性能较差，且对低频元素的化合物预测能力有限，但它为发现具有理想性质的新材料提供了一种更快、更经济的方式。</p>
+<p>未来的工作可以进一步优化ASPH方法，提高其对不稳定化合物和立体异构体的预测能力，并探索其在药物设计、RNA设计等领域的应用潜力。此外，拓扑方法还可以辅助其他拓扑结构分析工作，如单形与单纯复形、持续同调等，为化学性质预测提供新的视角。</p>
+<p><strong>研究汇报PPT文件：</strong><a href="https://bcn3gscsq9m8.feishu.cn/file/E6fIbcw2oo6lIwxwU5KcWIaknhh">拓扑几何与分子结构</a></p>
+<h3 id="图神经网络与分子结构预测">图神经网络与分子结构预测</h3>
+<p><strong>研究背景</strong>
+在化学信息学和材料科学中，分子结构的准确表示对于理解其化学性质和预测其行为至关重要。传统的分子表示方法，如SMILES字符串和基于图的方法，虽然在一定程度上能够描述分子的结构，但它们往往缺乏对分子几何特征和空间信息的捕捉。这种局限性在涉及立体化学和分子构象的任务中尤为明显。因此，研究者们一直在探索新的方法来更全面地表示分子结构，包括其几何和拓扑信息。</p>
+<p><strong>研究方法</strong></p>
+<p>本研究提出了一种基于离散里奇曲率的图感知嵌入方法，用于捕捉分子图中的几何特性和结构信息。这种方法的核心在于利用图的离散里奇曲率来描述分子图中的几何特征，而无需改变底层的神经网络架构。具体方法如下：</p>
+<blockquote></blockquote>
+<p>1.一维分子表示学习：使用SMILES字符串通过NLP模型学习分子的特征表示。
+2.基于图的分子表示：将原子表示为节点，化学键表示为边，利用图神经网络（GNNs）捕捉分子内部的连接和空间排布。
+3.节点特征编码：将化学信息编码进节点特征向量中，如原子序数、价态、电子层数、杂化类型等。
+4.二维图数据增强：将图论信息编码进节点的特征向量中，如介数中心性、度中心性、图的拉普拉斯矩阵等。
+5.三维图数据表示学习：使用等变图神经网络（GNNs）处理三维图数据，保持对三维空间欧几里得变换的等变性。
+6.图的离散里奇曲率：计算分子图中各边的离散里奇曲率，捕捉分子图中的几何特性和结构信息。
+7.基于曲率编码的分子图嵌入：将k-跳曲率编码嵌入到节点特征中，增强分子化学性质与几何拓扑信息之间的联系。</p>
+<p><strong>研究结果</strong></p>
+<p>研究结果表明，基于曲率的图感知嵌入能够有效地捕捉分子图中的几何特征和结构信息。这种方法能够区分具有相同度数但在不同分子中具有不同结构环境的原子。通过在k-跳子图上计算曲率值，研究者们能够扩展原始离散里奇曲率的定义，从而更好地揭示分子的几何特征与其化学性质之间的关系。</p>
+<p>此外，将曲率编码集成到现有的图神经网络框架中，如GCN和Graphormer，可以显著提升模型对分子化学性质的预测能力。这种方法不仅提高了模型的性能，而且由于其无需对网络架构进行修改，因此具有很好的通用性和易集成性。</p>
+<p><img src="/./images/insert_images/Alphafold/2024101216.png" alt="框架图">
+<img src="/./images/insert_images/Alphafold/2024101217.png" alt="框架图">
+<img src="/./images/insert_images/Alphafold/2024101218.png" alt="框架图">
+<img src="/./images/insert_images/Alphafold/2024101219.png" alt="框架图">
+<img src="/./images/insert_images/Alphafold/2024101220.png" alt="框架图">
+<img src="/./images/insert_images/Alphafold/2024101221.png" alt="框架图">
+<img src="/./images/insert_images/Alphafold/2024101222.png" alt="框架图"></p>
+<h3 id="强化学习-蒙特卡洛树搜索与分子结构预测">强化学习+蒙特卡洛树搜索与分子结构预测</h3>
+<p><strong>引言</strong>
+强化学习（RL）和蒙特卡洛树搜索（MCTS）是两种强大的机器学习方法，它们在许多领域都取得了显著的成果。比如著名的AlphaGo和AlphaZero，它们分别利用了强化学习和MCTS来在围棋游戏中取得胜利。这一算法主要应用在决策过程复杂、状态空间大、奖励延迟等问题上。在分子结构预测领域，RL和MCTS可以用于优化分子结构，以实现特定的化学性质或生物活性。</p>
+<p>这一方法在今年数学建模国赛的B题中也展露头角，在工厂多工序，多流水线的决策问题中，RL+MCTS的方法可以有效解决决策搜索问题。
+<img src="/./images/insert_images/RL-MCSmodel/pic2_%E5%9B%BD%E8%B5%9BB.jpg" alt="框架图"></p>
+<p><strong>研究背景</strong>
+自然进化过程中，多亚基蛋白质复合体的形成往往具有高度的形状互补性，以实现特定的生物学功能。然而，现有的蛋白质设计方法，特别是自下而上的层次化方法，通常无法实现这种通过进化优化的蛋白质结构。这些方法首先设计单体蛋白质结构，然后将它们组装成具有特定对称性的复合体，如二十面体或立方体结构。尽管这种方法在生物医学领域已有应用，如新设计的COVID疫苗，但它在设计复杂蛋白质纳米材料时存在局限性。</p>
+<p><strong>文章science链接：</strong><a href="https://www.science.org/doi/abs/10.1126/science.adf6591">Top-down design of protein architectures with
+reinforcement learning</a></p>
+<p><img src="/./images/insert_images/Alphafold/2024101226.png" alt="框架图"></p>
+<p><strong>研究方法</strong>
+为了克服这些局限性，研究者们开发了一种自上而下的蛋白质设计方法，该方法从所需的结构属性（如整体对称性、孔隙性等）出发，系统地构建能够优化这些属性的蛋白质亚基。这种方法的核心是使用蒙特卡洛树搜索（MCTS）算法，这是一种强化学习（RL）技术，用于在搜索树中找到最优的一系列选择。</p>
+<p><strong>MCTS算法实现步骤：</strong></p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>初始化：搜索树的构建从选择一个初始的螺旋片段开始，然后在树的每一步中，通过在N端或C端添加短蛋白质片段（螺旋或环）来扩展蛋白质链。</p>
+</li>
+<li>
+<p>选择和扩展：在每个分支点，随机选择一个片段来扩展蛋白质链。选择是基于概率的，这些概率随着搜索的进行而更新。</p>
+</li>
+<li>
+<p>几何约束：在搜索树的每一步中，应用几何约束来确保添加的片段不会违反预定的结构要求（如内部冲突和整体形状约束）。</p>
+</li>
+<li>
+<p>评分函数：完成的蛋白质骨架使用评分函数进行评估，这些函数评估生成的结构如何满足用户指定的问题解决方案。</p>
+</li>
+<li>
+<p>后向传播：根据评分函数的结果，重新调整搜索树中每个分支点的概率，以便后续迭代更有可能找到最优路径。</p>
+</li>
+<li>
+<p>迭代优化：通过多次迭代搜索树，生成具有越来越高评分的完整蛋白质骨架。</p>
+</li>
+<li>
+<p>多目标优化：通过初始化多个独立树并限制任何单一移动的最大概率来平衡探索与利用，从而优化全局结构属性。</p>
+</li>
+</ul>
+<p><strong>蛋白质设计实现：</strong></p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>单体蛋白质设计：研究者们首先在单体蛋白质水平上测试了MCTS方法，选择生成具有任意预指定整体形状的蛋白质骨架作为测试问题。</p>
+</li>
+<li>
+<p>对称纳米材料设计：将MCTS应用于设计具有所需对称性的纳米材料，如C5至C12的循环组装，以及多达240个亚基的二十面体、立方体和准对称二十面体组装。</p>
+</li>
+<li>
+<p>纳米孔构建：研究者们将MCTS应用于填充两个先前设计的环形蛋白质之间的空间，以生成具有中心纳米孔的盘状结构。</p>
+</li>
+<li>
+<p>迷你二十面体设计：研究者们探索了使用MCTS生成二十面体组装的方法，开发了特定的几何约束和评分函数来设计非常小且紧密包装的壳体。</p>
+</li>
+</ul>
+<p><strong>研究结果</strong>
+设计的盘状纳米孔和超紧凑型二十面体的冷冻电镜结构与计算模型非常接近。
+设计的二十面体能够在疫苗反应和血管生成诱导中展示极高的免疫原和信号分子密度。
+该方法能够设计具有所需系统属性的复杂蛋白质纳米材料，并展示了强化学习在蛋白质设计中的强大潜力。</p>
+<h2 id="学习资料推荐">学习资料推荐</h2>
+<p>最后给大家推荐两本很好的学习深度学习的书籍，尤其适合数学科学学院的同学。
+1.math for AI.pdf
+链接: <a href="https://pan.baidu.com/s/1y3-acj2XQq1Z4UBg0QjRHw">https://pan.baidu.com/s/1y3-acj2XQq1Z4UBg0QjRHw</a> 提取码: 27kv
+2.Mastering PyTorch：Create and deploy deep learning models from CNNs to multimodal models, LLMs and beyond, 2nd Edition-Packt Publishing (2024).pdf
+链接：<a href="https://pan.xunlei.com/s/VO8oBq5uQi23j4ADfX1wwS6BA1?pwd=g79d#">https://pan.xunlei.com/s/VO8oBq5uQi23j4ADfX1wwS6BA1?pwd=g79d#</a></p>
+]]></content>
+      <tags>
+        <tag>mathmodel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>综述：VLA如何落地医疗机器人</title>
+    <url>/posts/20040508.html</url>
+    <content><![CDATA[<h3 id="Embodied-ai-in-healthcare">Embodied-ai-in-healthcare</h3>
+<h2 id=""></h2>
+<blockquote></blockquote>
+<p>作者：@同济大学 刘越</p>
+<p>Github ID：@miracle-techlink</p>
+<p>联系邮箱：<a href="mailto:miracle.techlink@gmail.com">miracle.techlink@gmail.com</a></p>
+<p>校内邮箱: <a href="mailto:2254018@tongji.edu.cn">2254018@tongji.edu.cn</a></p>
+<hr>
+<p><img src="/./images/insert_images/VLA-postrain/3/1.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/2.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/3.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/4.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/5.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/6.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/7.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/8.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/9.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/10.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/11.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/12.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/13.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/14.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/15.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/16.png" alt="image.png">
+<img src="/./images/insert_images/VLA-postrain/3/17.png" alt="image.png"></p>
+]]></content>
+      <tags>
+        <tag>后训练</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LLM底层架构---手撕flashattention1</title>
+    <url>/posts/df2d3022.html</url>
+    <content><![CDATA[<h2 id="LLM底层架构-手撕flashattention1">LLM底层架构---手撕flashattention1</h2>
+<blockquote></blockquote>
+<p>作者：@同济大学 刘越</p>
+<p>Github ID：@miracle-techlink</p>
+<p>联系邮箱：<a href="mailto:miracle.techlink@gmail.com">miracle.techlink@gmail.com</a></p>
+<p>校内邮箱: <a href="mailto:2254018@tongji.edu.cn">2254018@tongji.edu.cn</a></p>
+<h2 id="引言">引言</h2>
+<p><strong>FlashAttention</strong>是近年来为优化自注意力机制（Self-Attention）而提出的一种高效算法，旨在解决传统注意力机制在大规模模型训练中的内存和计算瓶颈问题。其通过在硬件层面优化内存访问和计算策略，实现了显著的加速效果，尤其适用于大规模模型的训练。在其<strong>原始论文</strong>中（<a href="https://arxiv.org/pdf/2205.14135">FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Aware Computation</a>），作者提出了一种基于硬件友好的设计，使得计算过程中内存使用更加高效，从而加速了训练过程。FlashAttention 在保持精度的同时，显著降低了对 GPU 显存的需求和内存带宽的消耗。本文章参考了<strong>李理的博客</strong>（<a href="https://fancyerii.github.io/2023/10/23/flashattention/">FlashAttention: 高效注意力机制的实现与优化</a>），结合自己的理解，对 FlashAttention 的原理进行了详细解读。感谢原作者对其原理深入的解读和推导。</p>
+<p>FlashAttention 的优势主要体现在以下几个方面：</p>
+<ol>
+<li>
+<p><strong>显著提升训练速度</strong>：通过减少内存访问和计算冗余，FlashAttention 在多个任务上展示了比传统方法更快的训练速度。</p>
+</li>
+<li>
+<p><strong>内存效率</strong>：在不牺牲性能的情况下，显著降低了显存的占用，使得训练更长序列成为可能。</p>
+</li>
+<li>
+<p><strong>硬件友好性</strong>：充分利用 GPU 的内存层次结构，减少了对慢速内存的依赖，从而提高了硬件利用率。</p>
+</li>
+</ol>
+<p>这些特性使得 FlashAttention 成为当前深度学习模型，尤其是自然语言处理和计算机视觉领域中大规模训练的理想选择。</p>
+<h2 id="FlashAttention-概述">FlashAttention 概述</h2>
+<p>传统的自注意力机制在长序列上具有二次时间复杂度和内存需求，导致计算效率低下。FlashAttention通过使用GPU内存层次结构中的读写操作优化算法，并利用块稀疏性进一步提高性能。实验结果表明，FlashAttention比现有基准线快了15％，并且能够处理更长的上下文长度，从而提高了模型的质量并实现了新的能力。例如，在Path-X挑战赛中，FlashAttention使得模型在序列长度为16K时获得了超过61.4％的准确率。</p>
+<h3 id="性能评估">性能评估</h3>
+<p><strong>1. BERT 模型训练速度</strong>
+FlashAttention 在训练 BERT-large 模型时，比传统实现（例如 Nvidia MLPerf 1.1）快 15%。在同样的训练初始化和数据集（Wikipedia）下，FlashAttention 在 8 张 A100 GPU 上的训练时间为 17.4 分钟，相比之下，传统实现的训练时间为 20.0 分钟（见表 1）。这表明 FlashAttention 显著提高了 BERT 的训练速度。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/1.png" alt="框架图"></p>
+<p>表1：训练速度评估</p>
+<p><strong>2. GPT-2 模型性能</strong>
+在 GPT-2 上，FlashAttention 同样表现出色。在大规模的 OpenWebText 数据集上，FlashAttention 提供了比 HuggingFace 和 Megatron-LM 实现更快的训练速度。具体而言，GPT-2 small 和 medium 模型使用 FlashAttention 时，比 HuggingFace 实现快 3 倍，比 Megatron-LM 实现快 1.7 倍（见表 2）。FlashAttention 在不改变模型定义的情况下，达到了相同的训练/验证曲线，从而确保了其计算效率。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/2.png" alt="框架图"></p>
+<p>表2：模型性能评估</p>
+<p><strong>3. Long-range Arena 基准测试</strong>
+FlashAttention 在 Long-range Arena（LRA）基准测试中表现出色，尤其是在较长序列的处理上。与传统注意力机制相比，FlashAttention 实现了高达 2.4 倍的加速，比所有其他近似方法都要快。特别是，块稀疏 FlashAttention 在处理长序列时展现了更优的速度和效率（见表 3）。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/3.png" alt="框架图"></p>
+<p>表3：基准测试</p>
+<p><strong>其他优势性能</strong></p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>**训练吞吐量：**衡量模型训练效率的关键指标，通常以每秒处理的 token 数或样本数来表示。FlashAttention 能显著提升吞吐量，实际测试中可达到 2–3 倍的加速效果。这意味着在相同硬件条件下，训练所需时间大幅缩短，实验和调参的反馈周期也随之加快，极大提升了开发效率。</p>
+</li>
+<li>
+<p>**内存效率：**则体现在显存占用和可支持的最大序列长度上。传统注意力机制的显存复杂度为 O(N²)，而 FlashAttention 通过优化，将其降至 O(N)。这使得在有限的显存资源下，可以处理更长的输入序列和更大的 batch size，进一步提升了模型的表达能力，并减少了对梯度累积等技巧的依赖。</p>
+</li>
+<li>
+<p>**精度：**FlashAttention 不采用任何近似方法，能够保证与标准 Attention 几乎一致的输出结果。无论是从数值误差还是下游任务的性能表现来看，FlashAttention 都能做到训练质量无损，确保模型效果和实验的可复现性。</p>
+</li>
+<li>
+<p>**硬件友好性：**FlashAttention 充分考虑了硬件的内存层次结构，通过优化内存访问模式，减少对慢速内存的依赖，提升了内存带宽利用率和计算单元（如 GPU SM）的占用率。这不仅缓解了显存带宽的瓶颈，还能更好地发挥硬件的并行计算能力，从而提升整体训练效率。</p>
+</li>
+</ul>
+<h3 id="内存优化简述">内存优化简述</h3>
+<p>在大规模模型训练中，内存优化是突破性能瓶颈、扩展模型能力的关键。传统自注意力机制在处理长序列时，面临 O(N²) 的显存和计算复杂度，极大限制了可处理的序列长度和 batch size，导致硬件资源难以被充分利用。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/4.png" alt="框架图"></p>
+<p>图一：attention VS flashattention</p>
+<p>在图中，PyTorch 的处理时间较长，特别是在<strong>处理 softmax、dropout、mask 等操作时，这些操作虽然占用了大量的计算 FLOPS，但同时也伴随着内存读写的高开销</strong>*。而 FlashAttention 通过<strong>内核融合</strong>，将这些步骤结合成一个高效的单一操作，减少了中间数据的存储和搬运，从而显著降低了每个步骤的处理时间，尤其是在矩阵乘法（Matmul）和 softmax 操作中，FlashAttention 的优势尤其明显。</p>
+<p>FlashAttention 针对这一核心问题，深度结合了现代 GPU 的内存层次结构和高性能计算技术栈，主要包括 CUDA 编程、内核融合（Kernel Fusion）、切块（Tiling）、以及高效的内存调度策略。</p>
+<h3 id="为什么内存优化比单纯提升-FLOPS-更重要？">为什么内存优化比单纯提升 FLOPS 更重要？</h3>
+<p>在深度学习和大规模模型训练中，很多人习惯用 FLOPS（每秒浮点运算次数）来衡量硬件和算法的性能，认为只要计算能力足够强，训练速度就能大幅提升。然而，实际情况远比这复杂。</p>
+<ul>
+<li>
+<p><strong>忽视内存瓶颈</strong>：FLOPS 只反映了计算单元的理论算力，却没有考虑数据从内存传输到计算单元的速度。在现代 GPU/CPU 架构下，内存带宽和访问延迟往往成为性能的真正瓶颈。即使计算单元很强大，如果数据无法及时送达，硬件也只能“干等”，无法发挥全部性能。</p>
+</li>
+<li>
+<p><strong>计算停滞现象</strong>：当内存访问速度跟不上计算速度时，处理器会频繁陷入等待状态（compute stalls），导致实际利用率远低于理论峰值。此时，单纯提升 FLOPS 并不能带来等比例的性能提升。</p>
+</li>
+<li>
+<p><strong>IO 和带宽限制</strong>：大模型训练涉及大量数据读写，显存/内存带宽有限，频繁的数据交换会极大拖慢整体速度。FLOPS 的提升无法解决 IO 瓶颈，反而可能让计算资源“吃不饱”。</p>
+</li>
+</ul>
+<p><strong>这里李理以及原作者的博客中有一个很有意思的比喻。</strong></p>
+<blockquote></blockquote>
+<p>想象一下，计算工厂就像是一个超高效的流水线工人，它能处理大量的任务，一秒钟就能做成很多事（就像是 FLOPS 浮点运算）。但即使它再强大，如果没有足够的原材料（数据）传送给它，它也无法发挥最大效力。这里的“原材料”就是内存——所有的数据都必须从内存中提取出来，才能供给工厂的流水线进行计算。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/5.png" alt="框架图"></p>
+<p>图二：单纯提升FLOPS为什么不能解决困境？</p>
+<p>图的上半部分展示了这个生产线的瓶颈——内存和计算之间的平衡。如果内存提供数据的速度跟不上计算的需求，即使你的计算能力再强，也会变得无用。想象一下，这就像工厂的生产线工人再怎么努力工作，却发现没有足够的零件来装配产品。最后，工厂的速度就受限了。</p>
+<p>那么，FlashAttention 做了什么呢？它就像是为工厂安装了一条更快速的传送带，使得原材料（数据）能更高效地送到计算工厂。通过减少内存频繁的读写，它优化了数据传输路径，让计算工厂（FLOPS）不再被“原材料短缺”困扰。换句话说，它让内存和计算这两者的合作更加紧密，使得整个生产线（即训练过程）更加高效。</p>
+<p>内存带宽的提升就像是加快了数据的输送速度，确保了工厂（计算能力）不至于闲着。而仅仅提升FLOPS，如果没有同步提升内存带宽，那么计算工厂再强大也只是“纸上谈兵”。FlashAttention 精妙的设计让内存和计算两者的配合更加默契，避免了内存和计算的“脱节”，让整个训练过程飞速进行。</p>
+<h3 id="内存优化策略">内存优化策略</h3>
+<p>在传统的计算中，模型训练可能会受到内存带宽的限制，因为频繁的数据读取和写入会导致计算过程变慢。而 FlashAttention 的优化策略就是通过合理地分配和管理内存，使得最常用的数据（比如在自注意力计算中的矩阵和激活数据）保存在 **GPU 内部的高带宽内存（如 SRAM 和 HBM）**中，这样可以大幅提升数据访问速度。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/6.png" alt="框架图"></p>
+<p>图三：内存层次金字塔结构</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>**GPU SRAM：**位于内存层次结构的最上层，具有 最高的带宽（19 TB/s），但容量非常小（仅 20 MB）。这是最快的内存，但因为容量有限，通常仅用于存储频繁访问的小数据。</p>
+</li>
+<li>
+<p>**GPU HBM：**下一层是 GPU HBM（高带宽内存），带宽为 1.5 TB/s，容量为 40 GB。虽然它的带宽不如 GPU SRAM 快，但比大多数其他内存类型的带宽要高，容量也相对较大。通常用于存储模型数据和高频访问的数据。</p>
+</li>
+<li>
+<p>**Main Memory (CPU DRAM)：**位于最底层的是 主内存（CPU DRAM），带宽为 12.8 GB/s，容量大于 1 TB。这部分内存的带宽较低，但其容量是最大的，可以用于存储大量数据。</p>
+</li>
+</ul>
+<p>传统的自注意力计算通常会把大量的数据存储在主内存中，由于主内存的带宽较慢，这会造成计算过程的延迟。而 FlashAttention 通过将数据存储在更接近计算核心的内存中，减少了内存访问的延迟，从而避免了因为带宽限制而导致的性能瓶颈。SRAM 和 HBM这些内存层级提供了极高的带宽和相对较大的容量。FlashAttention 利用这些内存层次的优势，优化了内存访问路径，减少了 GPU 和主内存（CPU DRAM）之间的数据传输，从而加快了计算速度。</p>
+<p>FlashAttention 能够实现高效的内存优化，核心在于以下三项策略的深度结合与细致实现，可以概括为论文中的这张图片，后面会纤详细的进行解读。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/7.png" alt="框架图"></p>
+<p>图四：flashattention架构图</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p><strong>切块技术（Tiling）</strong>：将大规模矩阵分解为适合 GPU 本地缓存（如 SRAM）的子块，分批次进行计算。这样可以最大化利用高带宽、低延迟的本地存储，减少对慢速 HBM 的访问，提升整体内存带宽利用率。</p>
+</li>
+<li>
+<p><strong>重计算策略(recomputation)</strong>：通过重新计算部分中间结果，减少对显存的需求，从而避免显存溢出。同时，通过优化内存访问模式，降低内存带宽的瓶颈，提高计算效率。</p>
+</li>
+<li>
+<p><strong>CUDA 优化与内核融合</strong>：FlashAttention 通过自定义 CUDA kernel，将多个计算步骤（如 softmax、分数计算等）融合为单一内核，极大减少了内存读写次数，降低了数据在不同操作间的搬运开销。</p>
+</li>
+<li>
+<p><strong>块稀疏性（Block Sparsity）</strong>：通过稀疏化注意力矩阵，进一步减少无效计算和冗余内存访问，使得显存资源能够集中用于有效信息的处理。</p>
+</li>
+<li>
+<p><strong>高效内存调度</strong>：合理安排数据在 GPU 各级内存（SRAM、HBM）之间的流动，优先利用带宽更高的本地缓存，降低主存访问延迟，避免内存溢出。</p>
+</li>
+</ul>
+<p>后文会详细介绍这几项策略的底层原理，以及如何实现这些策略，相信你读完就会理解这张图的核心思想。</p>
+<h2 id="Attention计算流程与内存占用分析">Attention计算流程与内存占用分析</h2>
+<p>在阐述flashattention的优化策略之前，我们先回顾一下attention的计算流程，以及其内存占用情况。</p>
+<h3 id="HBM-内存占用分析与优化">HBM 内存占用分析与优化</h3>
+<p>我们先来看一下，在原始的attention计算流程中，HBM内存的占用情况。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/8.png" alt="框架图"></p>
+<p>图五：attention伪代码</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p>步骤 1：从 HBM 读取 ，计算出打分矩阵  后，再将  全量写入 HBM。</p>
+</li>
+<li>
+<p>步骤 2：再次从 HBM 读取 ，做 Softmax 归一化后将概率矩阵  全量写回。</p>
+</li>
+<li>
+<p>步骤 3：还要把  全量计算写回，计算  后再全量回写。</p>
+</li>
+</ul>
+<p>每一步都需要大规模地在 HBM 和计算单元之间搬运数据，导致 GPU 计算时常常出现瓶颈，无法充分发挥 FLOP 性能。现代 GPU 在 HBM 与计算核之间存在较快（但小容量的）SRAM（或片上缓存），理想的做法是“分块”把 Q, K, S, P 存在 SRAM，尽量在每次运算时避免访问 HBM。标准实现仍然需要每次读写大部分 HBM，下一步还是需要将全部数据加载到 HBM 中，完全没有利用“缓存亲和性”，浪费了 HBM 与 SRAM 之间的层次优化。</p>
+<p>对于长度  的序列，、、 三个矩阵各占用  大小的 HBM 容量。打分矩阵  占用 ，概率矩阵  也需要保存同样尺寸。最终输出矩阵  则再次占用 。</p>
+<ul>
+<li></li>
+</ul>
+<p><strong>总内存峰值</strong>：</p>
+<p>具体来说可以用一下两个指标来衡量计算性能：</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p><strong>Attention 总 FLOPs</strong>：（短矩阵乘法）+ （Softmax 缩放）+ ，与之对应的内存访问量：读取 Q, K, S, P（每次约 ），写回 O（每次约 ）。</p>
+</li>
+<li>
+<p><strong>Memory-bound</strong>：计算大部分都与内存访问密切相关，GPU 核心大部分时间在等待数据，FLOP 数量远大于数据传输能力。</p>
+</li>
+</ul>
+<h3 id="从embedding到QKV">从embedding到QKV</h3>
+<p><strong>Query (Q)</strong>, <strong>Key (K)</strong>, <strong>Value (V)</strong> 向量并不是从原始词向量中直接提取的，而是通过对词向量（Embedding）进行线性变换得到的。每个词的 <strong>Embedding</strong> 向量（例如  和 ）都会分别与三个不同的权重矩阵 （分别对应 Q, K, V）进行矩阵乘法，产生 Q, K, V 向量。这三个向量分别代表查询、键和值，最初思想来源于信息检索领域，用于计算查询和文档之间的相关性。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/9.png" alt="框架图"></p>
+<p>图6：embedding与Q,K,V向量获得过程</p>
+<blockquote></blockquote>
+<ul>
+<li>
+<p><strong>Q 向量</strong>：代表Query,就像你的检索请求：“我想要哪些相关的文档？”。通过乘以权重矩阵  得到  和 。这些向量是用来进行查询的。</p>
+</li>
+<li>
+<p><strong>K 向量</strong>：代表Key，相当于文档的索引或标签：给每个候选文档打上若干关键词。通过乘以权重矩阵  得到  和 。用于与查询向量进行匹配。</p>
+</li>
+<li>
+<p><strong>V 向量</strong>：代表value,是存放的实际内容：文档的正文或摘要。通过乘以权重矩阵  得到  和 。这些向量最终被加权求权，用来计算最终的输出。</p>
+</li>
+</ul>
+<h3 id="Scaled-Softmax-的作用">Scaled Softmax 的作用</h3>
+<p><strong>Softmax 定义</strong>：</p>
+<ul>
+<li>
+<p><strong>归一化</strong>：确保每个查询位置 ，所有键位置的权重和为 1：。</p>
+</li>
+<li>
+<p><strong>放大差异</strong>：相比线性归一化，更能“放大”相似度较高的项，使注意力更集中。</p>
+</li>
+<li>
+<p><strong>注意力权重</strong>：得到的  就是注意力分布或“注意力权重”，它告诉模型：在位置  生成输出时，应该“关注”输入序列中各个位置  的程度。</p>
+</li>
+</ul>
+<p><strong>Scaled Score 和 Softmax 为什么重要？</strong>
+<strong>Scaled Score</strong> 通过在计算分数时除以  缩放了打分矩阵的数值，避免了当向量维度  很大时，点积的结果过大，从而导致 Softmax 函数输出极端值的问题。<strong>Softmax</strong> 使得注意力分布的权重值在合适的范围内，避免了数值不稳定的情况。通过缩放，训练过程的梯度也能保持稳定，避免梯度消失或爆炸的现象。</p>
+<h3 id="加权输出原理与全局依赖捕捉">加权输出原理与全局依赖捕捉</h3>
+<p><strong>加权求和</strong>：</p>
+<p>对于输出位置 ，每个输入位置  的值  都按注意力权重  加权。这样就提升了以下两点能力：
+<strong>全局依赖</strong>：由于每个  都考虑了整个序列的打分，输出  能综合序列中所有位置的信息，突破了 RNN 局限的局部依赖性。多头机制进一步让不同子空间的注意力关注不同范围，提高了捕捉长程依赖的多样性。
+<strong>增强表示</strong>：将上下文中最相关的信息动态集成，使得模型能灵活地聚焦于语义上重要的部分，获得更富表达力的特征表示。</p>
+<p>这样，我们就可以去理解attention的核心代码了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ScaledDotProductAttention</span>(torch.nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, dropout=<span class="number">0.1</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(ScaledDotProductAttention, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.dropout = torch.nn.Dropout(dropout)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, Q, K, V, mask=<span class="literal">None</span></span>):</span><br><span class="line">        <span class="comment"># Q, K, V: (batch_size, num_heads, seq_len, d_k)</span></span><br><span class="line">        <span class="comment"># mask: (batch_size, 1, seq_len, seq_len)</span></span><br><span class="line"></span><br><span class="line">        d_k = Q.size(-<span class="number">1</span>)  <span class="comment"># 键的维度</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算缩放点积注意力</span></span><br><span class="line">        scores = torch.matmul(Q, K.transpose(-<span class="number">2</span>, -<span class="number">1</span>)) / torch.sqrt(torch.tensor(d_k, dtype=torch.float32))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果提供了mask，应用mask</span></span><br><span class="line">        <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            scores = scores.masked_fill(mask == <span class="number">0</span>, <span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用softmax计算注意力权重</span></span><br><span class="line">        attention_weights = F.softmax(scores, dim=-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 为了正则化，应用dropout</span></span><br><span class="line">        attention_weights = <span class="variable language_">self</span>.dropout(attention_weights)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算最终的注意力输出</span></span><br><span class="line">        output = torch.matmul(attention_weights, V)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> output, attention_weights</span><br></pre></td></tr></table></figure>
+<h2 id="softmax-切块计算（tiling-技术）">softmax 切块计算（tiling 技术）</h2>
+<h3 id="为什么需要-Tiling（切块）？">为什么需要 Tiling（切块）？</h3>
+<p>在自注意力计算中，Softmax 的归一化操作具有“非局部”特性：</p>
+<p>这里，分母  要把整行（长度  ）的所有分数都“读进来”才能计算。这意味着，为了算第  个 token 对所有其他 token 的注意力权重，你得先把这一整行的  都加载、累加，再做 。</p>
+<p>但是SRAM（寄存器 / 片上缓存）非常有限。序列长度  在实际应用里常常以几千（、）计，有的架构希望跑到( 、 )。而硬件上能立刻“塞”多少数据到寄存器 / 片上缓存里是受严格限制的，远远装不下整个长度为  的行。因此直接算  会因为内存或缓存不足而崩溃。</p>
+<p>计算  需要先做</p>
+<p>得到一个  的矩阵，然后对每行做  ，再乘回去加权</p>
+<p>整个流程如果不分块，当  很大时就会因为 SRAM 无法同时容纳整行分数而崩溃。</p>
+<h3 id="切块（Tiling）具体方案">切块（Tiling）具体方案</h3>
+<blockquote></blockquote>
+<ul>
+<li></li>
+</ul>
+<p>1.<strong>分块</strong> :把大矩阵拆成若干个小块（block），每个小块的行 / 列长度都控制在寄存器能承受的范围内。</p>
+<ul>
+<li></li>
+</ul>
+<p>2.<strong>局部计算</strong> :对每个 block 局部做  并累加该 block 内部的  计算。</p>
+<ul>
+<li></li>
+</ul>
+<p>3.<strong>拼接结果</strong> :将每个 block 的计算结果拼接起来，就能得到完整的注意力矩阵。这样既能保证每次进入 SRAM 的数据量受控，又能拼出完整的注意力矩阵，实现对长序列的高效自注意力计算。</p>
+<p><strong>其具体计算过程如下：</strong></p>
+<p>给定一个向量 ，softmax(x)</p>
+<p>计算向量  中的最大值，通过减去最大值来避免数值溢出，从而提高计算的稳定性：</p>
+<p>然后，对于每个元素 ，计算它与最大值  之间的差值的指数函数, 这一步将输入的原始数值转化为更容易处理的数值范围，同时保持元素间的相对差异不变：</p>
+<p>接着，对每个元素的指数值进行累加，得到一个总和，这个步骤是计算 Softmax 输出概率分布的基础：</p>
+<p>最终将每个指数值除以总和，得到 Softmax 归一化的概率分布：</p>
+<p>Softmax计算中，减去最大值  的目的是避免数值溢出并确保计算的稳定性。具体原因如下：</p>
+<p>我们很容易验证上面两个式子是相等的（只需要把第二个式子的分子分母同时乘以 ）。但是第一种方法是不稳定的，因为  非常大，这就导致上溢。而第二种方法减去最大的数，这就保证最大的是 ，而那些小的数都接近于零。我们知道在 0 到 1 之间，浮点数的精度是最大的。</p>
+<p>现在问题来了：我们的  被切分成两块（后面我们看到多块也是类似的，每次都是合并两块），变成  和 ，假设我们可以分别用上面的四个式子计算它们各自的  呢？如果可以的话，我们就可以把一个复杂的问题分解成很多简单的小问题，然后逐渐合并小问题的解得到大问题的解。答案当然是可以的，这就是下面的计算公式：</p>
+<p>一下是tilling后的代码:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">softmax</span>(<span class="params">x, dim=-<span class="number">1</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算 Softmax，减去最大值来避免数值溢出</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    m = torch.<span class="built_in">max</span>(x, dim=dim, keepdim=<span class="literal">True</span>)[<span class="number">0</span>]  <span class="comment"># 计算最大值</span></span><br><span class="line">    f = torch.exp(x - m)  <span class="comment"># 计算指数部分</span></span><br><span class="line">    l = torch.<span class="built_in">sum</span>(f, dim=dim, keepdim=<span class="literal">True</span>)  <span class="comment"># 计算累加和</span></span><br><span class="line">    <span class="keyword">return</span> f / l  <span class="comment"># 返回归一化的概率分布</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">tiling_attention</span>(<span class="params">Q, K, B</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算基于 Tiling 的 Attention，Q 和 K 是查询（Query）和键（Key）的矩阵，</span></span><br><span class="line"><span class="string">    B 是每个块的大小（分块的维度）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取矩阵的形状</span></span><br><span class="line">    n, d = Q.shape  <span class="comment"># Q 的维度 (n, d)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 初始化结果</span></span><br><span class="line">    output = torch.zeros((n, n), device=Q.device)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 对 Q 和 K 按块进行处理</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, n, B):  <span class="comment"># 遍历查询矩阵的行块</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, n, B):  <span class="comment"># 遍历键矩阵的行块</span></span><br><span class="line">            <span class="comment"># 取出每个块</span></span><br><span class="line">            Q_block = Q[i:i+B, :]</span><br><span class="line">            K_block = K[j:j+B, :]</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 计算 Q_block 和 K_block 的点积</span></span><br><span class="line">            attention_scores = torch.matmul(Q_block, K_block.T)  <span class="comment"># 计算注意力得分</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 计算每个块的 Softmax</span></span><br><span class="line">            attention_probs = softmax(attention_scores, dim=-<span class="number">1</span>)  <span class="comment"># 计算该块的 Softmax 值</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 将计算结果拼接起来</span></span><br><span class="line">            output[i:i+B, j:j+B] = attention_probs</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> output</span><br><span class="line"></span><br><span class="line"><span class="comment"># 示例：假设 Q 和 K 是两个大小为 (6, 4) 的矩阵，B=2 表示每个块大小为 2</span></span><br><span class="line">Q = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>],</span><br><span class="line">                  [<span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>],</span><br><span class="line">                  [<span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>],</span><br><span class="line">                  [<span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>],</span><br><span class="line">                  [<span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="number">8.0</span>],</span><br><span class="line">                  [<span class="number">6.0</span>, <span class="number">7.0</span>, <span class="number">8.0</span>, <span class="number">9.0</span>]])</span><br><span class="line"></span><br><span class="line">K = torch.tensor([[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>],</span><br><span class="line">                  [<span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>],</span><br><span class="line">                  [<span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>],</span><br><span class="line">                  [<span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>],</span><br><span class="line">                  [<span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="number">8.0</span>],</span><br><span class="line">                  [<span class="number">6.0</span>, <span class="number">7.0</span>, <span class="number">8.0</span>, <span class="number">9.0</span>]])</span><br><span class="line"></span><br><span class="line">B = <span class="number">2</span>  <span class="comment"># 每个块的大小</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算 Tiling 后的 Attention</span></span><br><span class="line">attention_output = tiling_attention(Q, K, B)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Attention Output:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(attention_output)</span><br></pre></td></tr></table></figure>
+<h2 id="重计算（recomputation）优化">重计算（recomputation）优化</h2>
+<h3 id="核心思想">核心思想</h3>
+<p>重计算的本质是用算力换带宽，也就是在计算完 Q_block 和 K_block 的点积后，不立即计算 Softmax，而是将结果存储起来，等到所有块都计算完毕后重算点积，再进行 Softmax 计算。这样可以减少 Softmax 计算的次数，从而提高计算效率。</p>
+<h3 id="前向传播重计算后复杂度">前向传播重计算后复杂度</h3>
+<p>同样计算 ：</p>
+<p>原来需要储存整个  ,现在仅需要保存：
+输出  和每行 softmax 的归一化统计量：</p>
+<p>空间</p>
+<p>总内存峰值：</p>
+<h3 id="前向传播重计算前复杂度">前向传播重计算前复杂度</h3>
+<p><strong>1.计算相关矩阵 S：</strong></p>
+<ul>
+<li>运算量：每对  要做一次 d 维点积，消耗 d 次乘加。
+总共有 N × N 对，故 FLOPs 是 。</li>
+</ul>
+<p><strong>2. 执行 Softmax → 注意力权重 P</strong></p>
+<ul>
+<li>运算量：对每行有 N 个元素做指数和归一化，总共 N 行。复杂度是 。</li>
+</ul>
+<p><strong>3. 加权求和并输出 O</strong></p>
+<p>运算量：知排列法 P (N × N) 和 V (N × d)，需要 N × N × d 次乘加：</p>
+<p><strong>4.合并步骤：</strong></p>
+<p>忽略低阶项</p>
+<p><strong>5.中间量存储 (Memory)</strong></p>
+<p>为了在反向传播中重复用上述结果，前向需要保留：
+· 似度矩阵 ，占用 N² 浮点数。
+· 注意力权重矩阵 ，占用 N² 浮点数。
+· (输出 O 与 V, Q, K 也会保留，但都会分别是 O(Nd) 或可忽略相比 N² 的量。)</p>
+<p>因此，峰值显存 / 内存大致是：</p>
+<h3 id="反向传播过程">反向传播过程</h3>
+<p>1.<strong>重算</strong>  和 ：</p>
+<p>2.<strong>计算梯度</strong>（与 Baseline 相同，只是用重算得来的 ）：</p>
+<p>已知O的梯度，计算P和V的梯度：</p>
+<p>再求S的梯度，利用softmax的公式：</p>
+<p>最终求Q,K的梯度：</p>
+<p>这里无需存储完整 ，只需在反向阶段多做一次矩阵乘与 softmax 运算。</p>
+<h2 id="核融合（Kernel-Fusion）原理">核融合（Kernel Fusion）原理</h2>
+<p>前文我们讲了tilling，它使得我们可以在显存不足的情况下，通过分块计算来避免显存溢出。然而，分块计算会带来额外的计算开销，因为我们需要在多个块之间进行通信。为了解决这个问题，我们可以使用核融合技术。“tiling”（分块）策略把算法放在一个 CUDA 核函数中实现。在这个核函数里，会把输入从 HBM 加载进来，然后依次进行一系列的计算操作，包括矩阵乘法、softmax 操作以及可选择性的 “masking（掩蔽）” 和 “dropout（丢弃）” 操作，最后再将计算得到的结果写回到 HBM 中。这种核融合的方式避免了反复地从 HBM 读取输入数据和向 HBM 写入输出数据，有效降低了数据传输带来的性能损耗，提高了整体的计算效率。</p>
+<h3 id="伪代码解读">伪代码解读</h3>
+<p>我们来看这段伪代码：</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/10.png" alt="框架图"></p>
+<p>图7：flashattention伪代码</p>
+<p><strong>初始化与分块</strong></p>
+<p>这一步就是前文我们提到的tilling，将矩阵Q,K,V分块，并初始化输出矩阵O。</p>
+<p><strong>设置块大小：</strong>
+- 列块大小
+- 行块大小</p>
+<p><strong>初始化变量：</strong>
+- 输出矩阵
+- 累积变量
+-</p>
+<p><strong>分块处理矩阵：</strong>
+- 将  分成  个行块 ，每个块大小为
+- 将  和  分成  个列块  和 ，每个块大小为
+- 将  分成  个行块 ，每个块大小为
+- 将  和  分成  个块  和 ，每个块大小为</p>
+<p>然后就是外层循环和内层循环了，这段代码中，外层循环遍历列块  和 ，内层循环遍历行块  和对应的输出块 ，以及累积变量  和 ，程序会依次将它们从高速内存（HBM）加载到芯片的内存（SRAM）中进行计算。核心思想是利用矩阵乘法的并行性，将计算任务分配到多个计算单元上，从而提高计算效率。</p>
+<p><strong>外层循环（训练步骤）</strong>
+外层循环是针对每一个时间步骤（或训练轮次）的迭代。它涉及对每一组数据进行处理，从而训练模型的参数。通过不断的迭代，模型逐渐优化其参数，使得预测结果接近真实值。</p>
+<ol>
+<li>
+<p><strong>加载数据</strong>：外层循环遍历训练过程中的不同时间步骤 （例如每个批次）。</p>
+</li>
+<li>
+<p><strong>从存储器加载数据</strong>：在每一次外层循环中，系统从高带宽内存（HBM）加载键（K）、值（V）向量。</p>
+</li>
+<li>
+<p><strong>计算注意力分数</strong>：对于每一对查询和键，计算得到一个注意力矩阵。</p>
+</li>
+<li>
+<p><strong>更新值与权重</strong>：通过计算注意力矩阵的最大值和归一化处理来更新每个查询的权重值（ 和 ）。</p>
+</li>
+<li>
+<p><strong>写回更新结果</strong>：将更新后的参数和结果写回内存。</p>
+</li>
+</ol>
+<p><strong>内层循环（迭代训练）</strong>
+内层循环负责根据数据中的具体元素来进一步优化和计算。对于每一个训练样本的输入，通过计算查询与键之间的关系，更新权重值和模型状态。</p>
+<p><strong>具体步骤如下：</strong></p>
+<ol>
+<li>
+<p><strong>计算注意力分数</strong>：对于每个数据，基于查询向量和键向量的内积计算注意力分数。</p>
+</li>
+<li>
+<p><strong>归一化处理</strong>：通过对每一行（每个查询）进行最大化处理，得到标准化后的注意力矩阵。然后对矩阵进行指数化，得到归一化后的概率分布（）。</p>
+</li>
+<li>
+<p><strong>更新模型状态</strong>：根据当前的权重（ 和 ）与计算得到的更新模型的输出。</p>
+</li>
+<li>
+<p><strong>写回存储器</strong>：将每次迭代的结果（新的模型参数和权重）写回内存，以便在下一步训练中使用。</p>
+</li>
+</ol>
+<p><strong>训练循环终止</strong>
+训练会根据设定的迭代次数或者收敛标准进行终止。外层和内层循环会反复进行，直到达到训练目标。</p>
+<h3 id="核心代码">核心代码</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">flash_attention</span>(<span class="params">Q, K, V, mask=<span class="literal">None</span>, dropout_p=<span class="number">0.0</span>, block_size=<span class="number">64</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    模拟 FlashAttention 计算：给定查询（Q）、键（K）、值（V），返回加权的值。</span></span><br><span class="line"><span class="string">    通过块级并行化来减少内存带宽消耗。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">    - Q: 查询矩阵，形状 (batch_size, num_heads, seq_len, head_dim)</span></span><br><span class="line"><span class="string">    - K: 键矩阵，形状 (batch_size, num_heads, seq_len, head_dim)</span></span><br><span class="line"><span class="string">    - V: 值矩阵，形状 (batch_size, num_heads, seq_len, head_dim)</span></span><br><span class="line"><span class="string">    - mask: 可选的掩码矩阵，形状 (batch_size, 1, seq_len, seq_len)</span></span><br><span class="line"><span class="string">    - dropout_p: dropout 概率，默认没有 dropout</span></span><br><span class="line"><span class="string">    - block_size: 用于块级并行化的块大小</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    返回:</span></span><br><span class="line"><span class="string">    - O: 输出矩阵，形状 (batch_size, num_heads, seq_len, head_dim)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    batch_size, num_heads, seq_len, head_dim = Q.size()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算 Q 和 K 的点积得到注意力得分 S</span></span><br><span class="line">    S = torch.matmul(Q, K.transpose(-<span class="number">2</span>, -<span class="number">1</span>))  <span class="comment"># (batch_size, num_heads, seq_len, seq_len)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 应用掩码（如果有的话）</span></span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        S = S.masked_fill(mask == <span class="number">0</span>, <span class="built_in">float</span>(<span class="string">&#x27;-inf&#x27;</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对得分进行 softmax，得到注意力分布</span></span><br><span class="line">    P = F.softmax(S, dim=-<span class="number">1</span>)  <span class="comment"># (batch_size, num_heads, seq_len, seq_len)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 应用 dropout（如果需要）</span></span><br><span class="line">    <span class="keyword">if</span> dropout_p &gt; <span class="number">0.0</span>:</span><br><span class="line">        P = F.dropout(P, p=dropout_p, training=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算加权和 O = P @ V</span></span><br><span class="line">    O = torch.matmul(P, V)  <span class="comment"># (batch_size, num_heads, seq_len, head_dim)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 现在模拟块稀疏计算：我们将整个矩阵分成大小为 block_size 的块进行计算</span></span><br><span class="line">    O_blocked = torch.zeros_like(O)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, seq_len, block_size):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, seq_len, block_size):</span><br><span class="line">            <span class="comment"># 为了模拟块计算，我们只计算当前块</span></span><br><span class="line">            S_block = S[:, :, i:i+block_size, j:j+block_size]</span><br><span class="line">            P_block = P[:, :, i:i+block_size, j:j+block_size]</span><br><span class="line">            V_block = V[:, :, j:j+block_size, :]</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 计算当前块的加权和</span></span><br><span class="line">            O_blocked[:, :, i:i+block_size, :] = torch.matmul(P_block, V_block)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> O_blocked</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例：</span></span><br><span class="line"></span><br><span class="line">batch_size = <span class="number">2</span></span><br><span class="line">num_heads = <span class="number">4</span></span><br><span class="line">seq_len = <span class="number">8</span></span><br><span class="line">head_dim = <span class="number">8</span></span><br><span class="line">block_size = <span class="number">4</span>  <span class="comment"># 使用 4x4 的块</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机初始化 Q, K, V</span></span><br><span class="line">Q = torch.randn(batch_size, num_heads, seq_len, head_dim)</span><br><span class="line">K = torch.randn(batch_size, num_heads, seq_len, head_dim)</span><br><span class="line">V = torch.randn(batch_size, num_heads, seq_len, head_dim)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建掩码矩阵</span></span><br><span class="line">mask = torch.ones(batch_size, <span class="number">1</span>, seq_len, seq_len)  <span class="comment"># 完全有效的掩码</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用 FlashAttention</span></span><br><span class="line">output = flash_attention(Q, K, V, mask=mask, dropout_p=<span class="number">0.1</span>, block_size=block_size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印输出形状</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Output shape: <span class="subst">&#123;output.shape&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Block-Sparse-FlashAttention">Block-Sparse FlashAttention</h3>
+<p>块稀疏注意力（Block-Sparse Attention）：这是一种用于减少计算量和内存消耗的技术，特别是在处理大规模数据时非常有效。通过使用稀疏的注意力矩阵，FlashAttention 可以显著减少无效计算。</p>
+<p><img src="/./images/insert_images/LLM-theory/flashattention1/11.png" alt="框架图"></p>
+<p>图8：掩码矩阵</p>
+<p>在上面的图示中，矩阵的非零区域表示的是某些特定块内的计算是“有效”的，而零区域表示无需计算，即这些部分的注意力权重为零。这意味着，在这些区域内，查询和键之间的注意力关系并不需要进行计算，从而节省了计算资源和内存带宽。</p>
+<p>每个块内的 token 可以进行注意力计算，也就是说在每个块内，查询和键之间是全连接的。这种方式可以提高效率，避免在计算时涉及到大量不需要计算的区域。比如，第一行的前两个“1”表示第一个 token 只能与第二个和第三个 token 进行注意力计算，其他的 token 由于被掩盖（值为零）而没有进行计算。通过对这些有效的连接进行加速，计算变得更高效。</p>
+<h2 id="总结">总结</h2>
+<p>FlashAttention作为一种创新的自注意力机制优化算法，通过充分利用GPU的内存层次结构和高效的计算策略，成功地解决了传统自注意力机制在处理长序列时的内存和计算瓶颈问题。它在多个深度学习任务中展现了出色的性能，显著提升了训练速度和内存效率，同时减少了对硬件资源的依赖。通过优化矩阵运算、内存访问和数据传输，FlashAttention为大规模模型的训练提供了一个强大的解决方案。</p>
+<p>不仅如此，FlashAttention的内存优化策略（如Tiling、重计算和内核融合）以及块稀疏性等技术，使得它能够在不牺牲模型精度的前提下，大幅度降低内存消耗，提高计算效率，尤其是在需要处理超长序列和复杂任务时，展现了独特的优势。</p>
+<p>随着深度学习模型规模的不断增长，FlashAttention为解决大模型训练中的资源瓶颈提供了新的思路和方法，未来有望在更广泛的应用场景中发挥更大的作用。希望本文能帮助你更好地理解FlashAttention的优化原理与实践，也期待它在更多领域中的应用与发展。</p>
+<h2 id="参考文献">参考文献</h2>
+<p>1.FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Aware Computation，<a href="https://arxiv.org/pdf/2205.14135">arXiv论文链接</a>
+2.FlashAttention: 高效注意力机制的实现与优化，<a href="https://fancyerii.github.io/2023/10/23/flashattention/">李理博客链接</a>
+3.Attention Is All You Need，<a href="https://arxiv.org/pdf/1706.03762">原始论文链接</a>
+4.Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism，<a href="https://arxiv.org/pdf/1909.08053">原始论文链接</a>
+5.Efficient Attention: Attention with Linear Complexities，<a href="https://arxiv.org/pdf/2009.06732">论文链接</a>
+6.Beyond FlashAttention: Exploring Memory-Efficient Transformer Models，<a href="https://www.mit.edu/research/efficient-transformers">研究解读链接</a></p>
+]]></content>
+      <tags>
+        <tag>底层架构</tag>
+      </tags>
+  </entry>
+</search>

@@ -1,0 +1,22 @@
+/* 覆盖 Butterfly 默认的蓝色 footer 背景 */
+#footer {
+  background-color: transparent !important;
+}
+
+/* 首页标题与打字机副标题调大 */
+#page-header.full_page #site-title {
+  font-size: 4em !important;
+}
+
+#page-header.full_page #site-subtitle {
+  font-size: 2.2em !important;
+}
+
+@media (max-width: 768px) {
+  #page-header.full_page #site-title {
+    font-size: 2.6em !important;
+  }
+  #page-header.full_page #site-subtitle {
+    font-size: 1.5em !important;
+  }
+}
